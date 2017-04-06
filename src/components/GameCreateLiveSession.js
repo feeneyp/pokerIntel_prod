@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { gameUpdate, createNewGame } from '../actions';
+import { gameUpdate, createNewGame, onStart, onStop, onReset, tick } from '../actions';
 import { Card, CardSection, Button } from './common';
 import GameForm from './GameForm';
 import Stopwatch from './Stopwatch';
@@ -22,7 +22,7 @@ class GameCreateLiveSession extends Component {
   render() {
     return (
       <Card>
-        <Stopwatch />
+        <Stopwatch {...this.props} />
         <GameForm {...this.props} />
         <CardSection>
           <Button onPress={this.onButtonPress.bind(this)}>
@@ -35,9 +35,9 @@ class GameCreateLiveSession extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { stake, gameType, location, limitType, buyIn, note, tips } = state.gameForm;
+  const { stake, gameType, location, limitType, buyIn, note, tips } = state.stopwatch;
 
   return { stake, gameType, location, limitType, buyIn, note, tips };
 };
 
-export default connect(mapStateToProps, {gameUpdate, createNewGame})(GameCreateLiveSession);
+export default connect(mapStateToProps, { gameUpdate, createNewGame, onStart, onStop, onReset, tick })(GameCreateLiveSession);

@@ -14,9 +14,10 @@ class Stopwatch extends Component {
     clearInterval(this.interval);
   }
 
-  onTick = () => {
+  onTick = (props) => {
   	    	      console.log('ONTICK FCT CALLED IN STOPWATCH.js');
     if (this.props.running) {
+      console.log('conditional in ONTICK FCT CALLED IN STOPWATCH.js');
       const now = Date.now();
       const elapsedTime = this.props.elapsedTime + (now - this.props.previousTime);
       const previousTime = Date.now();
@@ -30,7 +31,7 @@ class Stopwatch extends Component {
       <View style={{flexDirection: 'row'}}>
         <Text style={{color: 'white'}}>Stopwatch</Text>
         <Text style={{color: 'white'}}>{seconds}</Text>
-        <Button onPress={this.onTick.bind(this)}>Start</Button>
+        <Button onPress={()=>this.props.onStart()}>Start</Button>
         <Button onPress={()=>this.props.onStop()}>Stop</Button>
         <Button onPress={()=>this.props.onReset()}>Reset</Button>
       </View>
