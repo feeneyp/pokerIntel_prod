@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
 import { onStart, onStop, onReset, tick } from '../actions';
 import { Button } from './common';
@@ -26,18 +26,46 @@ class Stopwatch extends Component {
   };
 
   render() {
-    const seconds = Math.floor(this.props.elapsedTime / 1000);
+    let seconds = Math.floor(this.props.elapsedTime / 1000);
+    let minutes = Math.floor(this.props.elapsedTime / 1000 / 60);
+    let hours = Math.floor(this.props.elapsedTime / 1000 / 60 / 60);
+    seconds = seconds - (minutes * 60);
+    minutes = minutes - (hours * 60);
+    const formattedTime = `${hours < 10 ? 0 : ""}${hours}:${minutes < 10 ?
+        0 : ""}${minutes}:${seconds < 10 ? 0 : ""}${seconds}`;
     return (
-      <View style={{flexDirection: 'row'}}>
-        <Text style={{color: 'white'}}>Stopwatch</Text>
-        <Text style={{color: 'white'}}>{seconds}</Text>
-        <Button onPress={()=>this.props.onStart()}>Start</Button>
-        <Button onPress={()=>this.props.onStop()}>Stop</Button>
-        <Button onPress={()=>this.props.onReset()}>Reset</Button>
+      <View style={styles.timerSectionStyle}>
+        <Text style={styles.timerTextStyle}>{formattedTime}</Text>
+        <TouchableOpacity onPress={()=>this.props.onStart()}>
+          <Image source={require('../resources/play48x48.png')} style={styles.timerButtonStyle}  />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>this.props.onStop()}>
+          <Image source={require('../resources/stop48x48.png')} style={styles.timerButtonStyle}  />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={()=>this.props.onReset()}>
+          <Image source={require('../resources/reset1000x995.png')} style={styles.timerButtonStyle}  />
+        </TouchableOpacity>
       </View>
     );
   }
 }
+
+const styles = {
+  timerSectionStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+},
+  timerTextStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+  timerButtonStyle: {
+    width: 48,
+    height: 48
+
+  } 
+};
 
 const mapStateToProps = ({ stopwatch }) => {
   const { running, elapsedTime, previousTime } = stopwatch;

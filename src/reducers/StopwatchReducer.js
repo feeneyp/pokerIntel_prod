@@ -7,11 +7,8 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-
   switch (action.type) {
-
     case START:
-        console.log('THIS IS FROM STOPWATCH REDUCER - start case');
       return { ...state, running: action.running, previousTime: action.previousTime };
     case STOP:
       return { ...state, running: action.running };

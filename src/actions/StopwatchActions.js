@@ -2,7 +2,6 @@ import { START, STOP, RESET, TICK } from './types';
 
 
 export const onStart = () => {
-	      console.log('START CALLED IN STOPWATCH ACTIONS');
 	return {
 		type: START,
 		running: true,

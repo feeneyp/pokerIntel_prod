@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { gameUpdate, createNewGame, onStart, onStop, onReset, tick } from '../actions';
 import { Card, CardSection, Button } from './common';
@@ -9,10 +10,10 @@ class GameCreateLiveSession extends Component {
   onButtonPress() {
     const { stake, gameType, location, limitType, buyIn, note, tips } = this.props;
     this.props.createNewGame({
-      stake: stake,
-      gameType: gameType,
-      location: location,
-      limitType: limitType,
+      stake,
+      gameType,
+      location,
+      limitType,
       buyIn,
       note,
       tips
@@ -21,15 +22,17 @@ class GameCreateLiveSession extends Component {
 
   render() {
     return (
-      <Card>
-        <Stopwatch {...this.props} />
-        <GameForm {...this.props} />
-        <CardSection>
-          <Button onPress={this.onButtonPress.bind(this)}>
-            Create
-          </Button>
-        </CardSection>
-      </Card>
+      <View>
+          <Stopwatch {...this.props} />
+        <Card>
+          <GameForm {...this.props} />
+          <CardSection>
+            <Button onPress={this.onButtonPress.bind(this)}>
+              Create
+            </Button>
+          </CardSection>
+        </Card>
+      </View>
     );
   }
 }
