@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   listTextStyle: {
+	padding: 12,
     marginLeft: 12,
     fontSize: 24,
   }

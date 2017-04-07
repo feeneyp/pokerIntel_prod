@@ -11,9 +11,10 @@ import {
 export const createNewGame = ({ stake, gameType, location, limitType, buyIn, note, tips }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
-    console.log('gameCreate returns - new emp about to be pusehd with: ' +stake+gameType);
+    console.log('gameCreate returns - new emp about to be pusehd with: ' + stake + gameType);
     firebase.database().ref(`/users/${currentUser.uid}/games`)
-      .push({stake, gameType, location, limitType, buyIn, note, tips})
+      .push({ stake, gameType, location, limitType, buyIn, note, tips, 
+          startDate, startTime, endDate, endTime, cashOut })
       .then(() => {
         dispatch({ type: GAME_CREATED });
         Actions.gameList();
@@ -26,7 +27,8 @@ export const gameSave = ({ stake, gameType, location, limitType, buyIn, note, ti
   return (dispatch) => {
     console.log('gameSave returns - new emp about to updated with: ' + stake + gameType + location);
     firebase.database().ref(`/users/${currentUser.uid}/games/${uid}`)
-      .set({ stake, gameType, location, limitType, buyIn, note, tips })
+      .set({ stake, gameType, location, limitType, buyIn, note, tips,
+          startDate, startTime, endDate, endTime, cashOut })
       .then(() => {
         dispatch({ type: GAME_SAVE_SUCCESS });
         Actions.gameList();

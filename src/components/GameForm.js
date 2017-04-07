@@ -3,10 +3,12 @@ import { View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import { gameUpdate } from '../actions';
 import { CardSection, Input, Button } from './common';
+import DateTimePickerStartEndAndroid from './DateTimePickerAndroid';
 
 class GameForm extends Component {
   render() {
-    const { stake, gameType, location, limitType, buyIn, note, tips } = this.props;
+    const { stake, gameType, location, limitType, buyIn, note, tips,
+        startDate, startTime, endDate, endTime, cashOut } = this.props;
     console.log('this.props is : ' + JSON.stringify(this.props));
     return (
         <View>
@@ -100,6 +102,16 @@ class GameForm extends Component {
             //in the line above no need for bind because you have closure (fat arrow)
             />
           </CardSection>
+          <DateTimePickerStartEndAndroid />
+          <CardSection>
+            <Input
+            label="Cash Out ($)"
+            placeholder="0"
+            value={cashOut}
+            onChangeText={value => this.props.gameUpdate({ prop: 'cashOut', value })}
+            //in the line above no need for bind because you have closure (fat arrow)
+            />
+          </CardSection>
         </View> 
     );
   }
@@ -113,9 +125,11 @@ const styles = {
 };
 
 const mapStatetoProps = (state) => {
-  const { stake, gameType, location, limitType, buyIn, note, tips } = state.gameForm;
+  const { stake, gameType, location, limitType, buyIn, note, tips,
+      startDate, startTime, endDate, endTime, cashOut } = state.gameForm;
   console.log('state is : ' + JSON.stringify(state.gameForm));
-  return { stake, gameType, location, limitType, buyIn, note, tips };
+  return { stake, gameType, location, limitType, buyIn, note, tips,
+      startDate, startTime, endDate, endTime, cashOut };
   };
 
 export default connect(mapStatetoProps, { gameUpdate })(GameForm);

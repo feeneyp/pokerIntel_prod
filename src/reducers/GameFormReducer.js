@@ -11,7 +11,12 @@ const INITIAL_STATE = {
   limitType: '',
   buyIn: '',
   note: '',
-  tips: ''
+  tips: '',
+  startDate: '',
+  startTime: '',
+  endDate: '',
+  endTime: '',
+  cashOut: '' 
 };
 
 export default (state = INITIAL_STATE, action) => {

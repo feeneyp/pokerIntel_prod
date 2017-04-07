@@ -1,41 +1,53 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ScrollView } from 'react-native';
 import { gameUpdate, createNewGame } from '../actions';
 import { Card, CardSection, Button } from './common';
 import GameForm from './GameForm';
 
+
 class GameCreateCompletedSession extends Component {
   onButtonPress() {
-    const { stake, gameType, location, limitType, buyIn, note, tips } = this.props;
+    const { stake, gameType, location, limitType, buyIn, 
+      note, tips, startDate, startTime, endDate, endTime, cashOut } = this.props;
     this.props.createNewGame({
-      stake: stake,
-      gameType: gameType,
-      location: location,
-      limitType: limitType,
+      stake,
+      gameType,
+      location,
+      limitType,
       buyIn,
       note,
-      tips
+      tips,
+      startDate,
+      startTime,
+      endDate,
+      endTime,
+      cashOut
       });
   }
 
   render() {
     return (
-      <Card>
-        <GameForm {...this.props} />
-        <CardSection>
-          <Button onPress={this.onButtonPress.bind(this)}>
-            Create
-          </Button>
-        </CardSection>
-      </Card>
+      <ScrollView>
+        <Card>
+          <GameForm {...this.props} />
+          <CardSection>
+            <Button onPress={this.onButtonPress.bind(this)}>
+              Create
+            </Button>
+          </CardSection>
+        </Card>
+      </ScrollView>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { stake, gameType, location, limitType, buyIn, note, tips } = state.gameForm;
+  const { stake, gameType, location, limitType, buyIn, note, tips,
+      startDate, startTime, endDate, endTime, cashOut } = state.gameForm;
 
-  return { stake, gameType, location, limitType, buyIn, note, tips };
+  return { stake, gameType, location, limitType, buyIn, note, tips,
+      startDate, startTime, endDate, endTime, cashOut };
 };
 
-export default connect(mapStateToProps, {gameUpdate, createNewGame})(GameCreateCompletedSession);
+export default connect(mapStateToProps, { gameUpdate, createNewGame })(GameCreateCompletedSession);
