@@ -11,7 +11,7 @@ class ListItem extends Component {
 		}
 
 	render() {
-		const { location, gameType, buyIn } = this.props.game;
+		const { location, gameType, buyIn, startDate } = this.props.game;
 		console.log('about to return in listitem render');
 		return (
 			<View>

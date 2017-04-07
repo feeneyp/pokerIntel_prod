@@ -8,7 +8,8 @@ import {
 } from './types';
    
 
-export const createNewGame = ({ stake, gameType, location, limitType, buyIn, note, tips }) => {
+export const createNewGame = ({ stake, gameType, location, limitType, buyIn, note, tips,
+    startDate, startTime, endDate, endTime, cashOut }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     console.log('gameCreate returns - new emp about to be pusehd with: ' + stake + gameType);
@@ -22,7 +23,8 @@ export const createNewGame = ({ stake, gameType, location, limitType, buyIn, not
   };
 };
 
-export const gameSave = ({ stake, gameType, location, limitType, buyIn, note, tips, uid }) => {
+export const gameSave = ({ stake, gameType, location, limitType, buyIn, note, tips, 
+    startDate, startTime, endDate, endTime, cashOut, uid }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     console.log('gameSave returns - new emp about to updated with: ' + stake + gameType + location);
