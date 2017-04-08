@@ -102,7 +102,7 @@ class GameForm extends Component {
             //in the line above no need for bind because you have closure (fat arrow)
             />
           </CardSection>
-          <DateTimePickerStartEndAndroid />
+          <DateTimePickerStartEndAndroid {...this.props} />
           <CardSection>
             <Input
             label="Cash Out ($)"

@@ -1,42 +1,39 @@
 import React from 'react';
 var moment = require('moment');
+import { connect } from 'react-redux';
 import { DatePickerAndroid, TimePickerAndroid, View, Text, Button, TouchableWithoutFeedback } from 'react-native';
+import { gameUpdate } from '../actions';
 import { CardSection } from './common/CardSection';
 
-export default class DateTimePickerStartEndAndroid extends React.Component {
+class DateTimePickerStartEndAndroid extends React.Component {
 
-  showDatePicker = async (stateKey, options) => {
+  showDatePicker = async (prop, options) => {
     try {
-      const newState = {};
       const { action, year, month, day } = await DatePickerAndroid.open(options);
-      if (action === DatePickerAndroid.dismissedAction) {
-        newState[stateKey + 'Text'] = 'dismissed';
-      } else {
-        const date = new Date(year, month, day);
-        newState[stateKey + 'Text'] = date.toLocaleDateString();
-        newState[stateKey + 'Date'] = date;
+      if (action !== DatePickerAndroid.dismissedAction) {
+        const date = moment(new Date(year,month,day)).format('ll');
+        this.props.gameUpdate({ prop, value: date });
       }
-      this.setState(newState);
     } catch ({ code, message }) {
-      console.warn(`Error in example '${stateKey}': `, message);
+      console.warn(`Error in example: `, message);
     }
   };
 
 
-  showTimePicker = async (stateKey, options) => {
+  showTimePicker = async (prop, options) => {
+    const formatTime = (hour, minute) => {
+      return hour + ':' + (minute < 10 ? '0' + minute : minute);
+    };
     try {
       const {action, minute, hour} = await TimePickerAndroid.open(options);
-      var newState = {};
       if (action === TimePickerAndroid.timeSetAction) {
-        newState[stateKey + 'Text'] = _formatTime(hour, minute);
-        newState[stateKey + 'Hour'] = hour;
-        newState[stateKey + 'Minute'] = minute;
+        const time = formatTime(hour, minute);
+        this.props.gameUpdate({ prop, value: time });
       } else if (action === TimePickerAndroid.dismissedAction) {
-        newState[stateKey + 'Text'] = 'dismissed';
+        //boilerplate code had a 'dismissed' property in local state 
       }
-      this.setState(newState);
     } catch ({code, message}) {
-      console.warn(`Error in example '${stateKey}': `, message);
+      console.warn(`Error in example: `, message);
     }
   };
 
@@ -47,14 +44,14 @@ export default class DateTimePickerStartEndAndroid extends React.Component {
 		<CardSection style={{ flexDirection: 'row', justifyContent:'space-around' }}>
 		  	<View style={styles.containerStyle}>
 				<Text style={styles.labelTextStyle}>Start Date</Text>
-				<TouchableWithoutFeedback onPress={this.showDatePicker.bind(this, 'simple', { date: Date.now() })} >
-					<Text style={styles.dateTextStyle}>{moment().format('ll').toString()}</Text>
+				<TouchableWithoutFeedback onPress={this.showDatePicker.bind(this, 'startDate', { date: Date.now() })} >
+					<Text style={styles.dateTextStyle}>{this.props.startDate}</Text>
 				</TouchableWithoutFeedback>
 			</View>
 		  	<View style={styles.containerStyle}>
 		  		<Text style={styles.labelTextStyle}>Start Time</Text>
-				<TouchableWithoutFeedback onPress={this.showTimePicker.bind(this, 'simple', {})} >
-					<Text style={styles.timeTextStyle}>{moment().format('LT').toString()}</Text>
+				<TouchableWithoutFeedback onPress={this.showTimePicker.bind(this, 'startTime', {})} >
+					<Text style={styles.timeTextStyle}>{this.props.startTime}</Text>
 				</TouchableWithoutFeedback>
 			</View>
 		</CardSection>
@@ -62,14 +59,14 @@ export default class DateTimePickerStartEndAndroid extends React.Component {
 		<CardSection style={{ flexDirection: 'row', justifyContent:'space-around' }}>
 		  	<View style={styles.containerStyle}>
 				<Text style={styles.labelTextStyle}>End Date</Text>
-				<TouchableWithoutFeedback onPress={this.showDatePicker.bind(this, 'simple', { date: Date.now() })} >
-					<Text style={styles.dateTextStyle}>{moment().format('ll').toString()}</Text>
-				</TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={this.showDatePicker.bind(this, 'endDate', { date: Date.now() })} >
+          <Text style={styles.dateTextStyle}>{this.props.endDate}</Text>
+        </TouchableWithoutFeedback>
 			</View>
 		  	<View style={styles.containerStyle}>
 		  		<Text style={styles.labelTextStyle}>End Time</Text>
-				<TouchableWithoutFeedback onPress={this.showTimePicker.bind(this, 'simple', {})} >
-					<Text style={styles.timeTextStyle}>{moment().format('LT').toString()}</Text>
+				<TouchableWithoutFeedback onPress={this.showTimePicker.bind(this, 'endTime', {})} >
+					<Text style={styles.timeTextStyle}>{this.props.endTime}</Text>
 				</TouchableWithoutFeedback>
 			</View>
 		</CardSection>
@@ -101,3 +98,12 @@ const styles = {
 	padding: 5
   }
 };
+
+
+const mapStateToProps = ({ gameForm }) => {
+  const { startDate, startTime, endDate, endTime } = gameForm;
+  return { startDate, startTime, endDate, endTime };
+};
+
+export default connect(mapStateToProps, { gameUpdate })(DateTimePickerStartEndAndroid);
+

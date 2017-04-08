@@ -16,7 +16,7 @@ class ListItem extends Component {
 		return (
 			<View>
 				<Text style={styles.dateAndTimeStyle}>
-					Date and Time
+					Game played on: {this.props.game.startDate}
 				</Text>	
 				<TouchableWithoutFeedback onPress={this.showGameDetail.bind(this)}>
 					<View style={styles.gameDetailsStyle}>

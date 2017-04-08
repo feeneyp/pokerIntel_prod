@@ -3,6 +3,7 @@ import {
   GAME_CREATED,
   GAME_SAVE_SUCCESS
 } from '../actions/types';
+var moment = require('moment');
 
 const INITIAL_STATE = {
   stake: '',
@@ -12,10 +13,10 @@ const INITIAL_STATE = {
   buyIn: '',
   note: '',
   tips: '',
-  startDate: '',
-  startTime: '',
-  endDate: '',
-  endTime: '',
+  startDate: moment().format('ll'),
+  startTime: moment().format('LT'),
+  endDate: moment().format('ll'),
+  endTime: moment().format('LT'),
   cashOut: '' 
 };
 
