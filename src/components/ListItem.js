@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+var moment = require('moment');
 import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
@@ -16,7 +17,7 @@ class ListItem extends Component {
 		return (
 			<View>
 				<Text style={styles.dateAndTimeStyle}>
-					Game played on: {this.props.game.startDate}
+					{startDate}
 				</Text>	
 				<TouchableWithoutFeedback onPress={this.showGameDetail.bind(this)}>
 					<View style={styles.gameDetailsStyle}>

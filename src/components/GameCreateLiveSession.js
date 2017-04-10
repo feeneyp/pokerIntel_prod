@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { gameUpdate, createNewGame, onStart, onStop, onReset, tick } from '../actions';
 import { Card, CardSection, Button } from './common';
-import GameFormLive from './GameFormLive';
+import GameForm from './GameForm';
 import Stopwatch from './Stopwatch';
 
 class GameCreateLiveSession extends Component {
@@ -25,7 +25,7 @@ class GameCreateLiveSession extends Component {
       <ScrollView>
           <Stopwatch {...this.props} />
         <Card>
-          <GameFormLive {...this.props} />
+          <GameForm {...this.props} />
           <CardSection>
             <Button onPress={this.onButtonPress.bind(this)}>
               Create

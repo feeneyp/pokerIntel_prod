@@ -40,7 +40,7 @@ class DateTimePickerAndroid extends Component {
 
   render() {
     const StartDateTimeComponent = () => {
-      if (!this.props.running && !this.props.gameOver) {
+      if (!this.props.running && !this.props.gameCompleted) {
         return null;
       }
       return (
@@ -62,7 +62,7 @@ class DateTimePickerAndroid extends Component {
     };
 
     const EndDateTimeComponent = () => {
-      if (!this.props.gameOver) {
+      if (!this.props.gameCompleted) {
         console.log('EndDateTimeComponent WAS RETURNED NULL')
         return null;
       }
@@ -120,8 +120,8 @@ const styles = {
 
 
 const mapStateToProps = (state) => {
-  const { startDate, startTime, endDate, endTime, running, gameOver } = state.gameForm;
-  return { startDate, startTime, endDate, endTime, running, gameOver };
+  const { startDate, startTime, endDate, endTime, running, gameCompleted } = state.gameForm;
+  return { startDate, startTime, endDate, endTime, running, gameCompleted };
 };
 
 export default connect(mapStateToProps, { gameUpdate })(DateTimePickerAndroid);

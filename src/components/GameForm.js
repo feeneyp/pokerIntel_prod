@@ -6,14 +6,14 @@ import { CardSection, Input } from './common';
 import DateTimePickerAndroid from './DateTimePickerAndroid';
 
 
-class GameFormCompleted extends Component {
+class GameForm extends Component {
 
   render() {
     const { stake, gameType, location, limitType, buyIn, note, tips,
-    cashOut, gameOver } = this.props;
+    cashOut, gameCompleted } = this.props;
 
     const CashOutComponent = () => {
-      if (!gameOver) {
+      if (!gameCompleted) {
         return null;
       }
       return (
@@ -141,12 +141,12 @@ const styles = {
 
 const mapStatetoProps = (state) => {
   const { stake, gameType, location, limitType, buyIn, note, tips,
-      startDate, startTime, endDate, endTime, cashOut, gameOver } = state.gameForm;
+      startDate, startTime, endDate, endTime, cashOut, gameCompleted } = state.gameForm;
   console.log('state is : ' + JSON.stringify(state));
   return { stake, gameType, location, limitType, buyIn, note, tips,
-      startDate, startTime, endDate, endTime, cashOut, gameOver };
+      startDate, startTime, endDate, endTime, cashOut, gameCompleted };
   };
 
-export default connect(mapStatetoProps, { gameUpdate })(GameFormCompleted);
+export default connect(mapStatetoProps, { gameUpdate })(GameForm);
 
 

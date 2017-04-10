@@ -21,7 +21,7 @@ export const onStop = () => {
   return {
     type: STOP,
     running: false,
-    gameOver: true
+    gameCompleted: true
   };
 };
 
@@ -30,7 +30,7 @@ export const onReset = () => {
     type: RESET,
     elapsedTime: 0,
     previousTime: Date.now(),
-    gameOver: true
+    gameCompleted: true
   };
 };
 

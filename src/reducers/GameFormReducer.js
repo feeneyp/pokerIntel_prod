@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   running: false,
   previouseTime: 0,
   elapsedTime: 0,
-  gameOver: false,
+  gameCompleted: false,
   stake: '',
   gameType: '',
   location: '',
@@ -31,7 +31,7 @@ export default (state = INITIAL_STATE, action) => {
     case START:
       return { ...state, running: action.running, previousTime: action.previousTime, startDate: moment().format('ll'), startTime: moment().format('LT')};
     case STOP:
-      return { ...state, running: action.running, gameOver: action.gameOver, endDate: moment().format('ll'), endTime: moment().format('LT')};
+      return { ...state, running: action.running, gameCompleted: action.gameCompleted, endDate: moment().format('ll'), endTime: moment().format('LT')};
     case RESET:
       return { ...state, elapsedTime: action.elapsedTime, previousTime: action.previousTime };
     case TICK:
