@@ -15,9 +15,7 @@ class Stopwatch extends Component {
   }
 
   onTick = (props) => {
-  	    	      console.log('ONTICK FCT CALLED IN STOPWATCH.js');
     if (this.props.running) {
-      console.log('conditional in ONTICK FCT CALLED IN STOPWATCH.js');
       const now = Date.now();
       const elapsedTime = this.props.elapsedTime + (now - this.props.previousTime);
       const previousTime = Date.now();
@@ -67,11 +65,11 @@ const styles = {
   } 
 };
 
-const mapStateToProps = ({ stopwatch }) => {
-  const { running, elapsedTime, previousTime } = stopwatch;
+const mapStateToProps = ({ gameForm }) => {
+  const { running, elapsedTime, previousTime } = gameForm;
 
   return { running, elapsedTime, previousTime };
 };
 
-export default connect(mapStateToProps, {onStart, onStop, onReset, tick
+export default connect(mapStateToProps, { onStart, onStop, onReset, tick
 })(Stopwatch);

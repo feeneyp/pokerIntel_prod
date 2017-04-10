@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { gameUpdate, createNewGame, onStart, onStop, onReset, tick } from '../actions';
 import { Card, CardSection, Button } from './common';
-import GameForm from './GameForm';
+import GameFormLive from './GameFormLive';
 import Stopwatch from './Stopwatch';
 
 class GameCreateLiveSession extends Component {
@@ -22,23 +22,23 @@ class GameCreateLiveSession extends Component {
 
   render() {
     return (
-      <View>
+      <ScrollView>
           <Stopwatch {...this.props} />
         <Card>
-          <GameForm {...this.props} />
+          <GameFormLive {...this.props} />
           <CardSection>
             <Button onPress={this.onButtonPress.bind(this)}>
               Create
             </Button>
           </CardSection>
         </Card>
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { stake, gameType, location, limitType, buyIn, note, tips } = state.stopwatch;
+  const { stake, gameType, location, limitType, buyIn, note, tips } = state.gameForm;
 
   return { stake, gameType, location, limitType, buyIn, note, tips };
 };

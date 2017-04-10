@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import GameForm from './GameForm';
+import GameFormCompleted from './GameFormCompleted';
 import { gameUpdate, gameSave, gameDelete } from '../actions';
 import { Card, CardSection, Button, Confirm } from './common';
 
@@ -34,7 +34,7 @@ class GameEdit extends Component {
   render() {
     return (
       <ScrollView> 
-        <GameForm />
+        <GameFormCompleted />
 
         <CardSection>
           <Button onPress={this.onButtonPress.bind(this)}>

@@ -3,9 +3,9 @@ import { View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import { gameUpdate } from '../actions';
 import { CardSection, Input, Button } from './common';
-import DateTimePickerStartEndAndroid from './DateTimePickerAndroid';
+import DateTimePickerAndroid from './DateTimePickerAndroid';
 
-class GameForm extends Component {
+class GameFormCompleted extends Component {
   render() {
     const { stake, gameType, location, limitType, buyIn, note, tips,
         startDate, startTime, endDate, endTime, cashOut } = this.props;
@@ -102,7 +102,7 @@ class GameForm extends Component {
             //in the line above no need for bind because you have closure (fat arrow)
             />
           </CardSection>
-          <DateTimePickerStartEndAndroid {...this.props} />
+          <DateTimePickerAndroid {...this.props} />
           <CardSection>
             <Input
             label="Cash Out ($)"
@@ -132,6 +132,6 @@ const mapStatetoProps = (state) => {
       startDate, startTime, endDate, endTime, cashOut };
   };
 
-export default connect(mapStatetoProps, { gameUpdate })(GameForm);
+export default connect(mapStatetoProps, { gameUpdate })(GameFormCompleted);
 
 

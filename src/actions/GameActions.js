@@ -6,7 +6,40 @@ import {
   GAMES_FETCH_SUCCESS,
   GAME_SAVE_SUCCESS
 } from './types';
-   
+import { START, STOP, RESET, TICK } from './types';
+
+
+export const onStart = () => {
+  return {
+    type: START,
+    running: true,
+    previousTime: Date.now(),
+  };
+};
+
+export const onStop = () => {
+  return {
+    type: STOP,
+    running: false,
+    gameOver: true
+  };
+};
+
+export const onReset = () => {
+  return {
+    type: RESET,
+    elapsedTime: 0,
+    previousTime: Date.now(),
+  };
+};
+
+export const tick = ({ elapsedTime, previousTime }) => {
+  return {
+    type: TICK,
+    elapsedTime,
+    previousTime
+  };
+};
 
 export const createNewGame = ({ stake, gameType, location, limitType, buyIn, note, tips,
     startDate, startTime, endDate, endTime, cashOut }) => {

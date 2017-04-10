@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ScrollView } from 'react-native';
 import { gameUpdate, createNewGame } from '../actions';
 import { Card, CardSection, Button } from './common';
-import GameForm from './GameForm';
+import GameFormCompleted from './GameFormCompleted';
 
 
 class GameCreateCompletedSession extends Component {
@@ -30,7 +30,7 @@ class GameCreateCompletedSession extends Component {
     return (
       <ScrollView>
         <Card>
-          <GameForm {...this.props} />
+          <GameFormCompleted {...this.props} />
           <CardSection>
             <Button onPress={this.onButtonPress.bind(this)}>
               Create

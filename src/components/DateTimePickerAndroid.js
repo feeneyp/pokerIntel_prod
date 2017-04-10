@@ -5,7 +5,7 @@ import { DatePickerAndroid, TimePickerAndroid, View, Text, Button, TouchableWith
 import { gameUpdate } from '../actions';
 import { CardSection } from './common/CardSection';
 
-class DateTimePickerStartEndAndroid extends React.Component {
+class DateTimePickerAndroid extends React.Component {
 
   showDatePicker = async (prop, options) => {
     try {
@@ -105,5 +105,5 @@ const mapStateToProps = ({ gameForm }) => {
   return { startDate, startTime, endDate, endTime };
 };
 
-export default connect(mapStateToProps, { gameUpdate })(DateTimePickerStartEndAndroid);
+export default connect(mapStateToProps, { gameUpdate })(DateTimePickerAndroid);
 
