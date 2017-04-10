@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 import { View, Text, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import { gameUpdate } from '../actions';
-import { CardSection, Input, Button } from './common';
+import { CardSection, Input } from './common';
 import DateTimePickerAndroid from './DateTimePickerAndroid';
 
 
 class GameFormCompleted extends Component {
 
   render() {
-
     const { stake, gameType, location, limitType, buyIn, note, tips,
-    startDate, startTime, endDate, endTime, cashOut, gameOver } = this.props;
-    
-    function CashOutComponent() {
-      console.log('CASHOUT COMPONENET FCT CALLED');
+    cashOut, gameOver } = this.props;
+
+    const CashOutComponent = () => {
       if (!gameOver) {
         return null;
       }
@@ -29,7 +27,7 @@ class GameFormCompleted extends Component {
           />
         </CardSection>
       );
-    }
+    };
 
 
     console.log('this.props is : ' + JSON.stringify(this.props));
@@ -39,8 +37,8 @@ class GameFormCompleted extends Component {
               <Text style={styles.pickerTextStyle}>Stake</Text>
               <Picker  
                 style={{ flex: 1 }}
-                selectedValue={this.props.stake}
-                onValueChange={value => this.props.gameUpdate({ prop: 'stake', value})}
+                selectedValue={stake}
+                onValueChange={value => this.props.gameUpdate({ prop: 'stake', value })}
               >
                 <Picker.Item label="" value="" />
                 <Picker.Item label="$1/$2" value="1_2" />
@@ -69,10 +67,10 @@ class GameFormCompleted extends Component {
               <Text style={styles.pickerTextStyle}>Location</Text>
               <Picker
                 style={{ flex: 1 }}
-                selectedValue={this.props.location}
+                selectedValue={location}
                 onValueChange={value => {
                   this.props.gameUpdate({ prop: 'location', value });
-                  console.log('this.props.location is: ' + this.props.location);
+                  console.log('location is: ' + location);
                   }}
                   
               >
@@ -87,7 +85,7 @@ class GameFormCompleted extends Component {
               <Picker
                 style={{ flex: 1 }}
                 selectedValue={limitType}
-                onValueChange={value => this.props.gameUpdate({ prop: 'limitType', value})}
+                onValueChange={value => this.props.gameUpdate({ prop: 'limitType', value })}
               >
                 <Picker.Item label="" value="" />
                 <Picker.Item label="No Limit" value="No Limit" />
@@ -125,7 +123,7 @@ class GameFormCompleted extends Component {
             //in the line above no need for bind because you have closure (fat arrow)
             />
           </CardSection>
-          <DateTimePickerAndroid {...this.props} />
+          <DateTimePickerAndroid />
           <CashOutComponent />
 
         </View> 

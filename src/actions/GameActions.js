@@ -30,6 +30,7 @@ export const onReset = () => {
     type: RESET,
     elapsedTime: 0,
     previousTime: Date.now(),
+    gameOver: true
   };
 };
 
