@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 var moment = require('moment');
-import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 
@@ -19,7 +19,7 @@ class ListItem extends Component {
 				<Text style={styles.dateAndTimeStyle}>
 					{startDate}
 				</Text>	
-				<TouchableWithoutFeedback onPress={this.showGameDetail.bind(this)}>
+				<TouchableOpacity onPress={this.showGameDetail.bind(this)}>
 					<View style={styles.gameDetailsStyle}>
 						<Text style={styles.gameLocationTextStyle}>
 							{gameType}&nbsp;&nbsp;{location}	
@@ -28,7 +28,7 @@ class ListItem extends Component {
 							${buyIn}	
 						</Text>
 					</View>
-				</TouchableWithoutFeedback>
+				</TouchableOpacity>
 			</View>
 			);
 		}

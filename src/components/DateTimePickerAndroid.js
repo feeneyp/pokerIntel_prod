@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 var moment = require('moment');
 import { connect } from 'react-redux';
-import { DatePickerAndroid, TimePickerAndroid, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { DatePickerAndroid, TimePickerAndroid, View, Text, TouchableOpacity } from 'react-native';
 import { gameUpdate } from '../actions';
 import { CardSection } from './common/CardSection';
 
@@ -25,14 +25,14 @@ class DateTimePickerAndroid extends Component {
       return hour + ':' + (minute < 10 ? '0' + minute : minute);
     };
     try {
-      const {action, minute, hour} = await TimePickerAndroid.open(options);
+      const { action, hour, minute } = await TimePickerAndroid.open(options);
       if (action === TimePickerAndroid.timeSetAction) {
-        const time = formatTime(hour, minute);
+        const time = moment(new Date(0,0,0,hour, minute)).format('LT');
         this.props.gameUpdate({ prop, value: time });
       } else if (action === TimePickerAndroid.dismissedAction) {
         //boilerplate code had a 'dismissed' property in local state 
       }
-    } catch ({code, message}) {
+    } catch ({ code, message }) {
       console.warn(`Error in example: `, message);
     }
   };
@@ -47,15 +47,15 @@ class DateTimePickerAndroid extends Component {
         <CardSection style={{ flexDirection: 'row', justifyContent:'space-around' }}>
             <View style={styles.containerStyle}>
             <Text style={styles.labelTextStyle}>Start Date</Text>
-            <TouchableWithoutFeedback onPress={this.showDatePicker.bind(this, 'startDate', { date: Date.now() })} >
+            <TouchableOpacity onPress={this.showDatePicker.bind(this, 'startDate', { date: Date.now() })} >
               <Text style={styles.dateTextStyle}>{this.props.startDate}</Text>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </View>
             <View style={styles.containerStyle}>
               <Text style={styles.labelTextStyle}>Start Time</Text>
-            <TouchableWithoutFeedback onPress={this.showTimePicker.bind(this, 'startTime', {})} >
+            <TouchableOpacity onPress={this.showTimePicker.bind(this, 'startTime', {})} >
               <Text style={styles.timeTextStyle}>{this.props.startTime}</Text>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </View>
         </CardSection>
       );
@@ -63,22 +63,21 @@ class DateTimePickerAndroid extends Component {
 
     const EndDateTimeComponent = () => {
       if (!this.props.gameCompleted) {
-        console.log('EndDateTimeComponent WAS RETURNED NULL')
         return null;
       }
       return (
         <CardSection style={{ flexDirection: 'row', justifyContent:'space-around' }}>
             <View style={styles.containerStyle}>
             <Text style={styles.labelTextStyle}>End Date</Text>
-            <TouchableWithoutFeedback onPress={this.showDatePicker.bind(this, 'endDate', { date: Date.now() })} >
+            <TouchableOpacity onPress={this.showDatePicker.bind(this, 'endDate', { date: Date.now() })} >
               <Text style={styles.dateTextStyle}>{this.props.endDate}</Text>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </View>
             <View style={styles.containerStyle}>
               <Text style={styles.labelTextStyle}>End Time</Text>
-            <TouchableWithoutFeedback onPress={this.showTimePicker.bind(this, 'endTime', {})} >
+            <TouchableOpacity onPress={this.showTimePicker.bind(this, 'endTime', {})} >
               <Text style={styles.timeTextStyle}>{this.props.endTime}</Text>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           </View>
         </CardSection>
       );
