@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
+var moment = require('moment');
 import {
   GAME_UPDATE,
   GAME_CREATED,
@@ -14,14 +15,19 @@ export const onStart = () => {
     type: START,
     running: true,
     previousTime: Date.now(),
+    startDate: moment().format('ll'),
+    startTime: moment().format('LT')
   };
 };
 
-export const onStop = () => {
+export const onStop = (elapsedTime) => {
   return {
     type: STOP,
     running: false,
-    gameCompleted: true
+    gameCompleted: true,
+    endDate: moment().format('ll'),
+    endTime: moment().format('LT'),
+    gameDuration: Math.round(elapsedTime / (60*60*1000) * 10) / 10.0
   };
 };
 
@@ -42,14 +48,15 @@ export const tick = ({ elapsedTime, previousTime }) => {
   };
 };
 
-export const createNewGame = ({ stake, gameType, location, limitType, buyIn, note, tips,
-    startDate, startTime, endDate, endTime, cashOut }) => {
+export const createNewGameInFB = ({ elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
+    startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
-    console.log('gameCreate returns - new emp about to be pusehd with: ' + stake + gameType);
+    console.log('gameCreate returns - new session about to be pushed with gameDuration: ' + gameDuration);
+    console.log('startDate is: '+startDate);
     firebase.database().ref(`/users/${currentUser.uid}/games`)
-      .push({ stake, gameType, location, limitType, buyIn, note, tips, 
-          startDate, startTime, endDate, endTime, cashOut })
+      .push({ elapsedTime, stake, gameType, location, limitType, buyIn, note, tips, 
+          startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut })
       .then(() => {
         dispatch({ type: GAME_CREATED });
         Actions.gameList();
@@ -57,14 +64,14 @@ export const createNewGame = ({ stake, gameType, location, limitType, buyIn, not
   };
 };
 
-export const gameSave = ({ stake, gameType, location, limitType, buyIn, note, tips, 
-    startDate, startTime, endDate, endTime, cashOut, uid }) => {
+export const gameSave = ({ elapsedTime, stake, gameType, location, limitType, buyIn, note, tips, 
+    startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut, uid }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     console.log('gameSave returns - new emp about to updated with: ' + stake + gameType + location);
     firebase.database().ref(`/users/${currentUser.uid}/games/${uid}`)
-      .set({ stake, gameType, location, limitType, buyIn, note, tips,
-          startDate, startTime, endDate, endTime, cashOut })
+      .set({ elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
+          startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut })
       .then(() => {
         dispatch({ type: GAME_SAVE_SUCCESS });
         Actions.gameList();
@@ -93,7 +100,6 @@ export const gameDelete = ({ uid }) => {
 
 
 export const gamesFetch = () => {
-  console.log('firebase.auth is: ' + JSON.stringify(firebase.auth()));
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     console.log('GameActions about to do a fb snapshot');

@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { gameUpdate, createNewGame, onStart, onStop, onReset, tick } from '../actions';
+import { gameUpdate, createNewGameInFB, onStart, onStop, onReset, tick } from '../actions';
 import { Card, CardSection, Button } from './common';
 import GameForm from './GameForm';
 import Stopwatch from './Stopwatch';
 
 class GameCreateLiveSession extends Component {
+
   onButtonPress() {
-    const { stake, gameType, location, limitType, buyIn, note, tips } = this.props;
-    this.props.createNewGame({
-      stake,
-      gameType,
-      location,
-      limitType,
-      buyIn,
-      note,
-      tips
-      });
+    const { elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
+    startDate, startTime, endDate, endTime,  startEndISOFormat, gameDuration, cashOut } = this.props;
+    this.props.createNewGameInFB({ elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
+    startDate, startTime, endDate, endTime,  startEndISOFormat, gameDuration, cashOut });
   }
 
   render() {
@@ -38,9 +33,11 @@ class GameCreateLiveSession extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { stake, gameType, location, limitType, buyIn, note, tips } = state.gameForm;
+  const { elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
+    startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut } = state.gameForm;
 
-  return { stake, gameType, location, limitType, buyIn, note, tips };
+  return { elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
+    startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut };
 };
 
-export default connect(mapStateToProps, { gameUpdate, createNewGame, onStart, onStop, onReset, tick })(GameCreateLiveSession);
+export default connect(mapStateToProps, { gameUpdate, createNewGameInFB, onStart, onStop, onReset, tick })(GameCreateLiveSession);

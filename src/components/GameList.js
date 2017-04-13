@@ -31,11 +31,9 @@ class GameList extends Component {
     });
 
     this.dataSource = ds.cloneWithRows(games);
-
-    console.log('loggin this.props: ' + JSON.stringify(this.props, null, 4));
-    console.log('loggin {games}: ' + JSON.stringify({games}, null, 4));
-    console.log('loggin games: ' + JSON.stringify(games, null, 4));
-    console.log('--------------------------------');
+    // console.log('--------------------------------');
+    // console.log('loggin {games}: ' + JSON.stringify({games}, null, 4));
+    // console.log('--------------------------------');
   }
 
   renderRow(game) {
@@ -57,6 +55,7 @@ class GameList extends Component {
 
 
 const mapStateToProps = (state) => {
+
   const games = _.map(state.games, (val, uid) => {
     return { ...val, uid }; 
     }); //_map creates list of objects

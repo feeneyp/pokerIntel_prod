@@ -37,7 +37,7 @@ class Stopwatch extends Component {
         <TouchableOpacity onPress={()=>this.props.onStart()}>
           <Image source={require('../resources/play48x48.png')} style={styles.timerButtonStyle}  />
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>this.props.onStop()}>
+        <TouchableOpacity onPress={()=>this.props.onStop(this.props.elapsedTime)}>
           <Image source={require('../resources/stop48x48.png')} style={styles.timerButtonStyle}  />
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>this.props.onReset()}>
@@ -67,7 +67,6 @@ const styles = {
 
 const mapStateToProps = ({ gameForm }) => {
   const { running, elapsedTime, previousTime } = gameForm;
-
   return { running, elapsedTime, previousTime };
 };
 

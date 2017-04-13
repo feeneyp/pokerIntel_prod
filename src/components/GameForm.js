@@ -12,25 +12,28 @@ class GameForm extends Component {
     const { stake, gameType, location, limitType, buyIn, note, tips,
     cashOut, gameCompleted } = this.props;
 
-    const CashOutComponent = () => {
-      if (!gameCompleted) {
-        return null;
-      }
-      return (
-        <CardSection>
-          <Input
-          label="Cash Out ($)"
-          placeholder="0"
-          value={cashOut}
-          onChangeText={value => this.props.gameUpdate({ prop: 'cashOut', value })}
-          //in the line above no need for bind because you have closure (fat arrow)
-          />
-        </CardSection>
-      );
-    };
+    //function below is an attempt to conditionally render CashOut field
+    //because in live session creation you want to hide it until
+    //stopwatch ends....but onChangeText is not working
+    // const CashOutComponent = (props) => {
+    //   if (!gameCompleted) {
+    //     return null;
+    //   }
+    //   return (
+    //     <CardSection>
+    //       <Input
+    //       label="Cash Out ($)"
+    //       placeholder="0"
+    //       value={cashOut}
+    //       onChangeText={value => props.gameUpdate({ prop: 'cashOut', value })}
+    //       //in the line above no need for bind because you have closure (fat arrow)
+    //       />
+    //     </CardSection>
+    //   );
+    // };
 
 
-    console.log('this.props is : ' + JSON.stringify(this.props));
+    //console.log('this.props is : ' + JSON.stringify(this.props));
     return (
         <View>
           <CardSection>
@@ -124,7 +127,14 @@ class GameForm extends Component {
             />
           </CardSection>
           <DateTimePickerAndroid />
-          <CashOutComponent />
+          <CardSection>
+          <Input
+            label="Cash Out ($)"
+            placeholder="0"
+            value={cashOut}
+            onChangeText={value => this.props.gameUpdate({ prop: 'cashOut', value })}
+          />
+          </CardSection>
 
         </View> 
     );
@@ -142,7 +152,7 @@ const styles = {
 const mapStatetoProps = (state) => {
   const { stake, gameType, location, limitType, buyIn, note, tips,
       startDate, startTime, endDate, endTime, cashOut, gameCompleted } = state.gameForm;
-  console.log('state is : ' + JSON.stringify(state));
+  //console.log('state is : ' + JSON.stringify(state));
   return { stake, gameType, location, limitType, buyIn, note, tips,
       startDate, startTime, endDate, endTime, cashOut, gameCompleted };
   };
