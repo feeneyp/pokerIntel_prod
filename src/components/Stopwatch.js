@@ -41,7 +41,7 @@ class Stopwatch extends Component {
           <Image source={require('../resources/stop48x48.png')} style={styles.timerButtonStyle}  />
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>this.props.onReset()}>
-          <Image source={require('../resources/reset1000x995.png')} style={styles.timerButtonStyle}  />
+          <Image source={require('../resources/stop48x48.png')} style={styles.timerButtonStyle}  />
         </TouchableOpacity>
       </View>
     );

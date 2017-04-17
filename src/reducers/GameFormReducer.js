@@ -2,7 +2,8 @@ import { START, STOP, RESET, TICK } from '../actions/types';
 import {
   GAME_UPDATE,
   GAME_CREATED,
-  GAME_SAVE_SUCCESS
+  GAME_SAVE_SUCCESS,
+  FB_PICKER_DATA_FETCH_SUCCESS
   } from '../actions/types';
 var moment = require('moment');
 
@@ -29,8 +30,8 @@ const INITIAL_STATE = {
       endTime: { hour: 0, minute: 0 }
     },
   gameDuration: '',
-  cashOut: '' 
-
+  cashOut: '',
+  pickerData: {}
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -49,7 +50,11 @@ export default (state = INITIAL_STATE, action) => {
       return INITIAL_STATE;
     case GAME_SAVE_SUCCESS:
       return INITIAL_STATE;
+    case FB_PICKER_DATA_FETCH_SUCCESS:
+      return { ...state, pickerData: action.payload };
     default:
       return state;
   }
 };
+
+

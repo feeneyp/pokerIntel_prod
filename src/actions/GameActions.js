@@ -4,7 +4,8 @@ var moment = require('moment');
 import {
   GAME_UPDATE,
   GAME_CREATED,
-  GAMES_FETCH_SUCCESS,
+  FB_GAMES_FETCH_SUCCESS,
+  FB_PICKER_DATA_FETCH_SUCCESS,
   GAME_SAVE_SUCCESS
 } from './types';
 import { START, STOP, RESET, TICK } from './types';
@@ -98,15 +99,21 @@ export const gameDelete = ({ uid }) => {
     };
   };
 
-
-export const gamesFetch = () => {
-  const { currentUser } = firebase.auth();
+export const firebaseFetch = (path, actionType) => {
+//export const firebaseFetch = (path, actionType) => {
   return (dispatch) => {
-    console.log('GameActions about to do a fb snapshot');
-    firebase.database().ref(`/users/${currentUser.uid}/games`)
+    console.log('GameActions about to do a fb snapshot with actiontype: ' + JSON.stringify({actionType}));
+    firebase.database().ref(path)
       .on('value', snapshot => {
-      dispatch({ type: GAMES_FETCH_SUCCESS, payload: snapshot.val() });
-    console.log('snapshot.val is : ' + JSON.stringify(snapshot.val()));
+        if (actionType === 'FB_GAMES_FETCH_SUCCESS') {
+      dispatch({ type: FB_GAMES_FETCH_SUCCESS, payload: snapshot.val() });
+      }
+      else {
+        if (actionType === 'FB_PICKER_DATA_FETCH_SUCCESS') {
+      dispatch({ type: FB_PICKER_DATA_FETCH_SUCCESS, payload: snapshot.val() });          
+        } 
+      }
+    console.log('snapshot.val for ' + actionType + 'is: ' + JSON.stringify(snapshot.val()));
       }); 
     };
 };

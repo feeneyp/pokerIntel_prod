@@ -1,18 +1,22 @@
 import React, {Component} from 'react';
+import firebase from 'firebase';
 import {Card, CardSection} from './common';
 import { View, Text } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { ListView } from 'react-native';
-import { gamesFetch } from '../actions';
+import { firebaseFetch } from '../actions';
 import ListItem from './ListItem';
 
 
 class GameList extends Component {
 
-	componentWillMount(state) {
-    console.log('comp will mount called');
-    this.props.gamesFetch(state);
+	componentWillMount() {
+    console.log('gamelist component will mount called');
+    const { currentUser } = firebase.auth();
+    const userId = currentUser.uid;
+    const path = '/users/' + userId + '/games';
+    this.props.firebaseFetch(path, 'FB_GAMES_FETCH_SUCCESS');
     this.createDataSource(this.props);
   }	
 
@@ -21,7 +25,6 @@ class GameList extends Component {
     // nextProps are the next set of props that this component
     // will be rendered with
     // this.props is still the old set of props
-
     this.createDataSource(nextProps);
   }
 
@@ -37,12 +40,14 @@ class GameList extends Component {
   }
 
   renderRow(game) {
-    console.log('loggin game: ' + JSON.stringify(game, null, 4));
+    //console.log('loggin game: ' + JSON.stringify(game, null, 4));
     console.log('--------------------------------');
     return <ListItem game={game} />;
   }
     
   render() {
+    console.log('this.props.games from gamelist render is : ' + JSON.stringify(this.props.games));
+
     return (
       <ListView
         enableEmptySections
@@ -53,15 +58,13 @@ class GameList extends Component {
     }
   }
 
-
 const mapStateToProps = (state) => {
-
-  const games = _.map(state.games, (val, uid) => {
+    const games = _.map(state.games, (val, uid) => {
     return { ...val, uid }; 
-    }); //_map creates list of objects
-  return ({ games });  //returns object with key-'game' 
-                         //and value of list of objects
+    }); //_map creates list of objects []
+  return ({ games });  //returns object with key-'games' 
+                         //and value of games which is list of game objects
  };
 
-export default connect(mapStateToProps, { gamesFetch })(GameList);
+export default connect(mapStateToProps, { firebaseFetch })(GameList);
 

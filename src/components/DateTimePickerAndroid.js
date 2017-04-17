@@ -5,41 +5,7 @@ import { DatePickerAndroid, TimePickerAndroid, View, Text, TouchableOpacity } fr
 import { gameUpdate } from '../actions';
 import { CardSection } from './common/CardSection';
 
-class DateTimePickerAndroid extends Component {
-
-
-  // constructor(props) {
-  //   super(props);
-  //   this.startEndISOFormat = {
-  //     startDate: { year: 0, month: 0, day: 0 },
-  //     startTime: { hour: 0, minute: 0 },
-  //     endDate: { year: 0, month: 0, day: 0 },
-  //     endTime: { hour: 0, minute: 0 }
-  //   };
-  // }
-
-
-  // componentWillUnmount() {
-  //   //console.log('startEndISO is: '+ this.startEndISOFormat.startDate);
-  //   let { year, month, day } = this.startEndISOFormat.startDate;
-  //   let { hour, minute } = this.startEndISOFormat.startTime;
-  //   const gameStart = new Date(year, month, day, hour, minute);
-  //   ({ year, month, day } = this.startEndISOFormat.endDate);
-  //   ({ hour, minute } = this.startEndISOFormat.endTime);
-  //   const gameEnd = new Date(year, month, day, hour, minute);
-  //   console.log('gameStart is: '+gameStart);
-  //   console.log('gameEnd is: '+gameEnd);
-  //   const gameDuration = (gameEnd - gameStart)/(60*60*1000) * 10 / 10.0;
-  //   console.log('gameDuration is: '+gameDuration);
-  //   //const hours = Math.round((gameDuration/(60.0*60.0*1000.0)) * 10.0) / 10.0;  //rounding to 1 dp using (number * 10)/10
-  //   this.props.gameUpdate({ prop: 'gameDuration', value: gameDuration });
-  //   // console.log('hours is: ' + hours + 'hrs');
-  //   console.log('||||||||||||||||||||||||||||||||||||');
-  //   // console.log('DATE AND TIME LOGS');
-  //   // console.log('this.startEndISOFormat is: ' + JSON.stringify(this.startEndISOFormat));
-  //   console.log('|||||||||||||||||||||||||||||||||||');
-  //   // console.log('this.props.gameDuration is: '+ this.props.gameDuration);
-  // }
+class DateTimePickerAndroid extends Component { 
 
   showDatePicker = async (prop, options) => {
     try {

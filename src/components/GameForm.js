@@ -1,39 +1,42 @@
 import React, { Component } from 'react';
 import { View, Text, Picker } from 'react-native';
+import _ from 'lodash';
 import { connect } from 'react-redux';
-import { gameUpdate } from '../actions';
+import { gameUpdate, firebaseFetch } from '../actions';
 import { CardSection, Input } from './common';
 import DateTimePickerAndroid from './DateTimePickerAndroid';
 
 
 class GameForm extends Component {
 
+                // <Picker.Item label="" value="" />
+                // <Picker.Item label="My House" value="My House" />
+                // <Picker.Item label="Casino" value="Casino" />
+
+
+
+  componentWillMount() {
+    console.log('gameform component will mount called');
+    this.props.firebaseFetch('/pickerData', 'FB_PICKER_DATA_FETCH_SUCCESS');
+  } 
+
   render() {
-    const { stake, gameType, location, limitType, buyIn, note, tips,
+    const { pickerData, stake, gameType, location, limitType, buyIn, note, tips,
     cashOut, gameCompleted } = this.props;
-
-    //function below is an attempt to conditionally render CashOut field
-    //because in live session creation you want to hide it until
-    //stopwatch ends....but onChangeText is not working
-    // const CashOutComponent = (props) => {
-    //   if (!gameCompleted) {
-    //     return null;
-    //   }
-    //   return (
-    //     <CardSection>
-    //       <Input
-    //       label="Cash Out ($)"
-    //       placeholder="0"
-    //       value={cashOut}
-    //       onChangeText={value => props.gameUpdate({ prop: 'cashOut', value })}
-    //       //in the line above no need for bind because you have closure (fat arrow)
-    //       />
-    //     </CardSection>
-    //   );
-    // };
+    console.log('this.props from render in gameform is: ' + JSON.stringify(this.props));
 
 
-    //console.log('this.props is : ' + JSON.stringify(this.props));
+
+    const pickerDataComponents = (picker) => {
+         const list = _.map(pickerData[picker], (item, index) => {
+      return (
+        <Picker.Item label={item.label} value={item.value} key={index} />
+        );
+      });
+    return (list);
+    };
+
+
     return (
         <View>
           <CardSection>
@@ -43,12 +46,7 @@ class GameForm extends Component {
                 selectedValue={stake}
                 onValueChange={value => this.props.gameUpdate({ prop: 'stake', value })}
               >
-                <Picker.Item label="" value="" />
-                <Picker.Item label="$1/$2" value="1_2" />
-                <Picker.Item label="$3/$5" value="3_5" />
-                <Picker.Item label="$5/$10" value="5_10" />
-                <Picker.Item label="$8/$16" value="8_16" />
-                <Picker.Item label="$20/$40" value="20_40" />
+              {pickerDataComponents('stakes')}
               </Picker>
           </CardSection>
 
@@ -59,10 +57,7 @@ class GameForm extends Component {
                 selectedValue={gameType}
                 onValueChange={value => this.props.gameUpdate({ prop: 'gameType', value })}
               >
-                <Picker.Item label="" value="" />
-                <Picker.Item label="Texas Holdem" value="Texas" />
-                <Picker.Item label="7 Card Stud" value="Stud" />
-                <Picker.Item label="Razz" value="Razz" />
+              {pickerDataComponents('game_types')}
               </Picker>
           </CardSection>
 
@@ -77,9 +72,7 @@ class GameForm extends Component {
                   }}
                   
               >
-                <Picker.Item label="" value="" />
-                <Picker.Item label="My House" value="My House" />
-                <Picker.Item label="Casino" value="Casino" />
+              {pickerDataComponents('locationss')}
               </Picker> 
           </CardSection>
 
@@ -90,10 +83,7 @@ class GameForm extends Component {
                 selectedValue={limitType}
                 onValueChange={value => this.props.gameUpdate({ prop: 'limitType', value })}
               >
-                <Picker.Item label="" value="" />
-                <Picker.Item label="No Limit" value="No Limit" />
-                <Picker.Item label="Fixed Limit" value="Fixed Limit" />
-                <Picker.Item label="Pot Limit" value="Pot Limit" />
+              {pickerDataComponents('limit_types')}
               </Picker>
           </CardSection>
 
@@ -150,13 +140,45 @@ const styles = {
 
 
 const mapStatetoProps = (state) => {
-  const { stake, gameType, location, limitType, buyIn, note, tips,
+  const { pickerData, stake, gameType, location, limitType, buyIn, note, tips,
       startDate, startTime, endDate, endTime, cashOut, gameCompleted } = state.gameForm;
-  //console.log('state is : ' + JSON.stringify(state));
-  return { stake, gameType, location, limitType, buyIn, note, tips,
-      startDate, startTime, endDate, endTime, cashOut, gameCompleted };
+  console.log('state from gameform mapStatetoProps is : ' + JSON.stringify(state));
+  console.log('pickerData before mstp return is: ' + JSON.stringify(pickerData));
+  return { pickerData, stake, gameType, location, limitType, buyIn, note, tips,
+      startDate, startTime, endDate, endTime, cashOut, gameCompleted};
+    
   };
 
-export default connect(mapStatetoProps, { gameUpdate })(GameForm);
+export default connect(mapStatetoProps, { gameUpdate, firebaseFetch })(GameForm);
 
-
+//code to put into chrome dev tools console to quickly populate
+// firebase with items for pickers and dropdowns
+// new Firebase('https://pokerincome-69774.firebaseio.com').child('/').update({
+//     pickerData: {
+//       stakes: {
+//           stake0: { label: '$1/$2', value: '1_2' },
+//           stake1: { label: '$3/$5', value: '3_5' },
+//           stake2: { label: '$5/$10', value: '5_10' },
+//           stake3: { label: '$8/$16', value: '8_16' },
+//           stake4: { label: '$20/$40', value: '20_40' },
+//           stake5: { label: 'Other Stake', value: 'other_stake' },
+//        },
+//       limit_types: {
+//           limit_type0: { label: 'Fixed Limit', value: 'fixed_limit' },
+//           limit_type1: { label: 'No Limit', value: 'no_limit' },
+//           limit_type2: { label: 'Pot Limit', value: 'pot_limit' },
+//           limit_type3: { label: 'Other Limit', value: 'other_limit' },
+//        },
+//       game_types: {
+//           game_type0: { label: 'Texas Holdem', value: 'texas' },
+//           game_type1: { label: '7 Card Stud', value: 'stud' },
+//           game_type2: { label: 'Razz', value: 'razz' },
+//           game_type3: { label: 'Other Game', value: 'other_game' },
+//        },
+//       locationss: {
+//           locations0: { label: 'My House', value: 'my_house' },
+//           locations1: { label: 'Casino', value: 'casino' },
+//           locations2: { label: 'Other Location', value: 'other_location' },
+//        },
+//     }
+// });

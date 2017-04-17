@@ -6,7 +6,8 @@ export const LOGIN_USER = 'login_user';
 
 export const GAME_UPDATE = 'game_update';
 export const GAME_CREATED = 'game_created';
-export const GAMES_FETCH_SUCCESS = 'games_fetch_success';
+export const FB_GAMES_FETCH_SUCCESS = 'games_fetch_success';
+export const FB_PICKER_DATA_FETCH_SUCCESS = 'picker_data_fetch_success';
 export const GAME_SAVE_SUCCESS = 'game_save_success';
 
 export const START = 'start_stopwatch';

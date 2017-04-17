@@ -39,13 +39,6 @@ class GameCreateCompletedSession extends Component {
 
   onButtonPress() {
 
-
-
-
-
-
-
-
     const { elapsedTime, stake, gameType, location, limitType, buyIn, 
     note, tips, startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut } = this.props;
     this.props.createNewGameInFB({
@@ -89,7 +82,7 @@ const mapStateToProps = (state) => {
   const { elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
       startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut } = state.gameForm;
    
-      console.log('state from mstp in gcreatecompleted is : ' + JSON.stringify(state));
+      //console.log('state from mstp in gcreatecompleted is : ' + JSON.stringify(state));
 
   return { elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
       startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut };
