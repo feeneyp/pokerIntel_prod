@@ -26,10 +26,10 @@ class DateTimePickerAndroid extends Component {
               console.log('DATE AND TIME LOGS');
               console.log('this.startEndISOFormat is: ' + JSON.stringify(startEndISOFormat));
               console.log('|||||||||||||||||||||||||||||||||||');
-              console.log('gameStart is: '+gameStart);
-              console.log('gameEnd is: '+gameEnd);
+              console.log('gameStart is: ' + gameStart);
+              console.log('gameEnd is: ' + gameEnd);
               const duration = Math.round((gameEnd - gameStart)/(60*60*1000) * 10) / 10.0;
-              console.log('duration is: '+duration);
+              console.log('duration is: ' + duration);
               //this.props.gameUpdate({ prop: 'gameDuration', value: duration });
               console.log('gameduration about to be updated by props.gameupdate');
               this.props.gameUpdate({ prop: 'gameDuration', value: duration });

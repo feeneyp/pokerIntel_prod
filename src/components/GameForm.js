@@ -9,12 +9,6 @@ import DateTimePickerAndroid from './DateTimePickerAndroid';
 
 class GameForm extends Component {
 
-                // <Picker.Item label="" value="" />
-                // <Picker.Item label="My House" value="My House" />
-                // <Picker.Item label="Casino" value="Casino" />
-
-
-
   componentWillMount() {
     console.log('gameform component will mount called');
     this.props.firebaseFetch('/pickerData', 'FB_PICKER_DATA_FETCH_SUCCESS');
@@ -72,7 +66,7 @@ class GameForm extends Component {
                   }}
                   
               >
-              {pickerDataComponents('locationss')}
+              {pickerDataComponents('locations')}
               </Picker> 
           </CardSection>
 
@@ -156,29 +150,29 @@ export default connect(mapStatetoProps, { gameUpdate, firebaseFetch })(GameForm)
 // new Firebase('https://pokerincome-69774.firebaseio.com').child('/').update({
 //     pickerData: {
 //       stakes: {
-//           stake0: { label: '$1/$2', value: '1_2' },
-//           stake1: { label: '$3/$5', value: '3_5' },
-//           stake2: { label: '$5/$10', value: '5_10' },
-//           stake3: { label: '$8/$16', value: '8_16' },
-//           stake4: { label: '$20/$40', value: '20_40' },
-//           stake5: { label: 'Other Stake', value: 'other_stake' },
+//           stake0: { label: '$1/$2', value: '$1/$2' },
+//           stake1: { label: '$3/$5', value: '$3/$5' },
+//           stake2: { label: '$5/$10', value: '$5/$10' },
+//           stake3: { label: '$8/$16', value: '$8/$16' },
+//           stake4: { label: '$20/$40', value: '$20/$40' },
+//           stake5: { label: 'Other Stake', value: 'Other Stake' },
 //        },
 //       limit_types: {
-//           limit_type0: { label: 'Fixed Limit', value: 'fixed_limit' },
-//           limit_type1: { label: 'No Limit', value: 'no_limit' },
-//           limit_type2: { label: 'Pot Limit', value: 'pot_limit' },
-//           limit_type3: { label: 'Other Limit', value: 'other_limit' },
+//           limit_type0: { label: 'Fixed Limit', value: 'Fixed Limit' },
+//           limit_type1: { label: 'No Limit', value: 'No Limit' },
+//           limit_type2: { label: 'Pot Limit', value: 'Pot Limit' },
+//           limit_type3: { label: 'Other Limit', value: 'Other Limit' },
 //        },
 //       game_types: {
-//           game_type0: { label: 'Texas Holdem', value: 'texas' },
-//           game_type1: { label: '7 Card Stud', value: 'stud' },
-//           game_type2: { label: 'Razz', value: 'razz' },
-//           game_type3: { label: 'Other Game', value: 'other_game' },
+//           game_type0: { label: 'Texas Holdem', value: 'Texas' },
+//           game_type1: { label: '7 Card Stud', value: 'Stud' },
+//           game_type2: { label: 'Razz', value: 'Razz' },
+//           game_type3: { label: 'Other Game', value: 'Other Game' },
 //        },
-//       locationss: {
-//           locations0: { label: 'My House', value: 'my_house' },
-//           locations1: { label: 'Casino', value: 'casino' },
-//           locations2: { label: 'Other Location', value: 'other_location' },
+//       locations: {
+//           locations0: { label: 'My House', value: 'My House' },
+//           locations1: { label: 'Casino', value: 'Casino' },
+//           locations2: { label: 'Other Location', value: 'Other Location' },
 //        },
 //     }
 // });

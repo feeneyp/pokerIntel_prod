@@ -13,11 +13,11 @@ class ListItem extends Component {
 
 	render() {
 		const { stake, gameType, location, limitType, buyIn, note, tips, 
-			startDate, startTime, endDate, endTime, gameDuration, cashOut  } = this.props.game;
+			startEndISOFormat, startDate, startTime, endDate, endTime, gameDuration, cashOut  } = this.props.game;
 		return (
 			<View>
 				<Text style={styles.dateTextStyle}>
-					{startDate}&nbsp;&nbsp;{moment(startDate).format('dddd')}
+					{startDate}&nbsp;&nbsp;{moment(new Date(startEndISOFormat.startDate.year,startEndISOFormat.startDate.month,startEndISOFormat.startDate.day,0,0)).format('dddd')}
 				</Text>	
 				<TouchableOpacity onPress={this.showGameDetail.bind(this)}>
 					<View style={styles.gameDetailSectionStyle}>

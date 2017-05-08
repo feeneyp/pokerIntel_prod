@@ -7,14 +7,14 @@ import { Button } from './common';
 class Stopwatch extends Component {
 
   componentDidMount() {
-    this.interval = setInterval(this.onTick);
+    this.interval = setInterval(this.onTick, 1000);
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
-  onTick = (props) => {
+  onTick = () => {
     if (this.props.running) {
       const now = Date.now();
       const elapsedTime = this.props.elapsedTime + (now - this.props.previousTime);
@@ -32,7 +32,7 @@ class Stopwatch extends Component {
     const formattedTime = `${hours < 10 ? 0 : ""}${hours}:${minutes < 10 ?
         0 : ""}${minutes}:${seconds < 10 ? 0 : ""}${seconds}`;
     return (
-      <View style={styles.timerSectionStyle}>
+      <View style={styles.timerSectionStyle}>          
         <Text style={styles.timerTextStyle}>{formattedTime}</Text>
         <TouchableOpacity onPress={()=>this.props.onStart()}>
           <Image source={require('../resources/play48x48.png')} style={styles.timerButtonStyle}  />
@@ -41,11 +41,36 @@ class Stopwatch extends Component {
           <Image source={require('../resources/stop48x48.png')} style={styles.timerButtonStyle}  />
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>this.props.onReset()}>
-          <Image source={require('../resources/stop48x48.png')} style={styles.timerButtonStyle}  />
+          <Image source={require('../resources/reset1000x995.png')} style={styles.timerButtonStyle}  />
         </TouchableOpacity>
       </View>
     );
   }
+
+
+  // render() {
+  //   let seconds = Math.floor(this.props.elapsedTime / 1000);
+  //   let minutes = Math.floor(this.props.elapsedTime / 1000 / 60);
+  //   let hours = Math.floor(this.props.elapsedTime / 1000 / 60 / 60);
+  //   seconds = seconds - (minutes * 60);
+  //   minutes = minutes - (hours * 60);
+  //   const formattedTime = `${hours < 10 ? 0 : ""}${hours}:${minutes < 10 ?
+  //       0 : ""}${minutes}:${seconds < 10 ? 0 : ""}${seconds}`;
+  //   return (
+  //     <View style={styles.timerSectionStyle}>          
+  //       <Text style={styles.timerTextStyle}>{formattedTime}</Text>
+  //       <TouchableOpacity onPress={()=>this.props.onStart()}>
+  //         <Image source={require('../resources/play48x48.png')} style={styles.timerButtonStyle}  />
+  //       </TouchableOpacity>
+  //       <TouchableOpacity onPress={()=>this.props.onStop(this.props.elapsedTime)}>
+  //         <Image source={require('../resources/stop48x48.png')} style={styles.timerButtonStyle}  />
+  //       </TouchableOpacity>
+  //       <TouchableOpacity onPress={()=>this.props.onReset()}>
+  //         <Image source={require('../resources/reset1000x995.png')} style={styles.timerButtonStyle}  />
+  //       </TouchableOpacity>
+  //     </View>
+  //   );
+  // }
 }
 
 const styles = {

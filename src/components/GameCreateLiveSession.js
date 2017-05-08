@@ -18,9 +18,9 @@ class GameCreateLiveSession extends Component {
   render() {
     return (
       <ScrollView>
-          <Stopwatch {...this.props} />
+          <Stopwatch />
         <Card>
-          <GameForm {...this.props} />
+          <GameForm />
           <CardSection>
             <Button onPress={this.onButtonPress.bind(this)}>
               Create
