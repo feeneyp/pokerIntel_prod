@@ -6,6 +6,7 @@ import ReduxThunk from 'redux-thunk';
 import logger from 'redux-logger';
 import Router from './Router';
 import reducers from './reducers';
+import LoginForm from './components/LoginForm';
 
 class App extends Component {
   componentWillMount() {	  
@@ -19,7 +20,6 @@ class App extends Component {
 	};
 	firebase.initializeApp(config);
   }
-
 
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk, logger));
