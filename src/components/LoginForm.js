@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
+import FBLogin from './FBLogin';
 
 class LoginForm extends Component {
   onEmailChange(text) {
@@ -23,10 +24,9 @@ class LoginForm extends Component {
     if (this.props.loading) {
       return <Spinner size="large" />;
     }
-
     return (
       <Button onPress={this.onButtonPress.bind(this)}>
-        Login
+        Login with email/password
       </Button>
     );
   }
@@ -62,6 +62,12 @@ class LoginForm extends Component {
         <View style={{ flexDirection: 'row'}}>
           {this.renderButton()}
         </View>
+
+        <View style={{ alignItems: 'center' }}>
+            <Text>&nbsp;</Text>
+            <FBLogin />
+        </View>
+
       </View>
     );
   }
@@ -74,6 +80,7 @@ const styles = {
     color: 'red'
   }
 };
+
 
 const mapStateToProps = ({ auth }) => {
   const { email, password, error, loading } = auth;
