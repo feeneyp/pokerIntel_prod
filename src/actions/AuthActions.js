@@ -3,9 +3,11 @@ import { Actions } from 'react-native-router-flux';
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
-  LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAIL,
-  LOGIN_USER
+  EMAIL_LOGIN_USER_SUCCESS,
+  EMAIL_LOGIN_USER_FAIL,
+  EMAIL_LOGIN_USER,
+  FACEBOOK_LOGIN_USER_SUCCESS,
+  FACEBOOK_LOGIN_USER_FAIL
 } from './types';
 
 export const emailChanged = (text) => {
@@ -22,30 +24,45 @@ export const passwordChanged = (text) => {
   };
 };
 
-export const loginUser = ({ email, password }) => {
+export const emailLoginUser = ({ email, password }) => {
   return (dispatch) => {
-    dispatch({ type: LOGIN_USER });
+    dispatch({ type: EMAIL_LOGIN_USER });
 
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(user => loginUserSuccess(dispatch, user))
+      .then(user => emailLoginUserSuccess(dispatch, user))
       .catch((error) => {
         console.log(error);
         firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(user => loginUserSuccess(dispatch, user))
-          .catch(() => loginUserFail(dispatch));
+          .then(user => emailLoginUserSuccess(dispatch, user))
+          .catch(() => emailLoginUserFail(dispatch));
       });
   };
 };
 
-const loginUserFail = (dispatch) => {
-  dispatch({ type: LOGIN_USER_FAIL });
+const emailLoginUserFail = (dispatch) => {
+  dispatch({ type: EMAIL_LOGIN_USER_FAIL });
 };
 
-const loginUserSuccess = (dispatch, user) => {
+const emailLoginUserSuccess = (dispatch, user) => {
   dispatch({
-    type: LOGIN_USER_SUCCESS,
+    type: EMAIL_LOGIN_USER_SUCCESS,
     payload: user
   });
 
   Actions.main();
 };
+
+
+const facebookLoginUserSuccess = (dispatch) => {
+  dispatch({
+    type: FACEBOOK_LOGIN_USER_SUCCESS,
+    payload: "facebook user"
+  });
+
+  Actions.main();
+};
+
+// const facebookLoginUserFail = (dispatch) => {
+//   dispatch({ type: FACEBOOK_LOGIN_USER_FAIL });
+// };
+

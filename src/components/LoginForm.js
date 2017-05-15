@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { emailChanged, passwordChanged, emailLoginUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 import FBLogin from './FBLogin';
 
@@ -17,7 +17,7 @@ class LoginForm extends Component {
   onButtonPress() {
     const { email, password } = this.props;
 
-    this.props.loginUser({ email, password });
+    this.props.emaiLoginUser({ email, password });
   }
 
   renderButton() {
@@ -89,5 +89,5 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps, {
-  emailChanged, passwordChanged, loginUser
+  emailChanged, passwordChanged, emailLoginUser
 })(LoginForm);

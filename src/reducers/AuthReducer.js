@@ -1,9 +1,11 @@
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
-  LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAIL,
-  LOGIN_USER
+  EMAIL_LOGIN_USER_SUCCESS,
+  EMAIL_LOGIN_USER_FAIL,
+  EMAIL_LOGIN_USER,
+  FACEBOOK_LOGIN_USER_SUCCESS,
+  FACEBOOK_LOGIN_USER_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -20,12 +22,16 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, email: action.payload };
     case PASSWORD_CHANGED:
       return { ...state, password: action.payload };
-    case LOGIN_USER:
+    case EMAIL_LOGIN_USER:
       return { ...state, loading: true, error: '' };
-    case LOGIN_USER_SUCCESS:
+    case EMAIL_LOGIN_USER_SUCCESS:
       return { ...state, ...INITIAL_STATE, user: action.payload };
-    case LOGIN_USER_FAIL:
-      return { ...state, error: 'Authentication Failed.', password: '', loading: false };
+    case EMAIL_LOGIN_USER_FAIL:
+      return { ...state, error: 'Email/password authentication Failed.', password: '', loading: false };
+    case FACEBOOK_LOGIN_USER_SUCCESS:
+      return {...state, ...INITIAL_STATE, user: action.payload };
+    case FACEBOOK_LOGIN_USER_FAIL:
+      return { ...state, error: 'Facebook login Failed.', password: '', loading: false };
     default:
       return state;
   }
