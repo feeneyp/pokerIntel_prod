@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import FBSDK from 'react-native-fbsdk';
-import { connect } from 'react-redux';
+import { connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { facebookLoginUserSuccess } from '../actions';
-
+import { Actions } from 'react-native-router-flux';
 
 const { LoginButton } = FBSDK;
       
@@ -20,7 +21,7 @@ class FBLogin extends Component {
               } else if (result.isCancelled) {
                 console.log("Login was cancelled");
               } else {
-                this.props.facebookLoginUserSuccess(dispatch).bind(this);
+                this.props.facebookLoginUserSuccess();
                 console.log("Login was successful with permissions: " + result.grantedPermissions)
               }
             }
@@ -37,6 +38,4 @@ const mapStateToProps = ({ auth }) => {
   return {error, loading };
 };
 
-export default connect(mapStateToProps, {
-  facebookLoginUserSuccess
-})(FBLogin);
+export default connect(mapStateToProps, { facebookLoginUserSuccess })(FBLogin);

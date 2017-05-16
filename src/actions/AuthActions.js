@@ -48,18 +48,19 @@ const emailLoginUserSuccess = (dispatch, user) => {
     type: EMAIL_LOGIN_USER_SUCCESS,
     payload: user
   });
-
   Actions.main();
 };
 
 
-const facebookLoginUserSuccess = (dispatch) => {
-  dispatch({
-    type: FACEBOOK_LOGIN_USER_SUCCESS,
-    payload: "facebook user"
-  });
-
-  Actions.main();
+export const facebookLoginUserSuccess = () => {
+  return(dispatch) => {
+    dispatch({
+      type: FACEBOOK_LOGIN_USER_SUCCESS,
+      payload: "facebook user"
+    });
+    Actions.main();
+    console.log("facebookLoginUserSuccess called as action in fblogin.js");
+  };
 };
 
 // const facebookLoginUserFail = (dispatch) => {

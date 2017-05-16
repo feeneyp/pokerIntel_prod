@@ -1,8 +1,10 @@
 export const EMAIL_CHANGED = 'email_changed';
 export const PASSWORD_CHANGED = 'password_changed';
-export const LOGIN_USER_SUCCESS = 'login_user_success';
-export const LOGIN_USER_FAIL = 'login_user_fail';
-export const LOGIN_USER = 'login_user';
+export const EMAIL_LOGIN_USER_SUCCESS = 'email_login_user_success';
+export const EMAIL_LOGIN_USER_FAIL = 'email_login_user_fail';
+export const EMAIL_LOGIN_USER = 'email_login_user';
+export const FACEBOOK_LOGIN_USER_SUCCESS = 'facebook_login_user_success';
+export const FACEBOOK_LOGIN_USER_FAIL = 'facebook_login_user_fail';
 
 export const GAME_UPDATE = 'game_update';
 export const GAME_CREATED = 'game_created';
