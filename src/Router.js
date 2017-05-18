@@ -7,6 +7,7 @@ import GameCreateLiveSession from './components/GameCreateLiveSession';
 import MainMenu from './components/MainMenu';
 import GameList from './components/GameList';
 import GameEdit from './components/GameEdit';
+import MyWeb from './components/webview';
 
 
 const navBarIcon = () => {
@@ -39,7 +40,7 @@ const RouterComponent = () => {
 				<Scene key="gameCreateCompletedSession" component={GameCreateCompletedSession} title="Enter a Game" />
 				<Scene key="gameCreateLiveSession" component={GameCreateLiveSession} title="Enter a Game" />
 				<Scene key="gameList" component={GameList} title="All Games" />
-				<Scene key="gameEdit" component={GameEdit} title="Game detail/edit" />
+				<Scene key="webview" component={MyWeb} title="Google Maps" />
 			</Scene>
 		</Router>
 		);

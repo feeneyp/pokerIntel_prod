@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Picker } from 'react-native';
+import { View, Text, Picker, TouchableOpacity } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { gameUpdate, firebaseFetch } from '../actions';
 import { CardSection, Input } from './common';
 import DateTimePickerAndroid from './DateTimePickerAndroid';
+import { Actions } from 'react-native-router-flux';
 
 
 class GameForm extends Component {
@@ -56,7 +57,13 @@ class GameForm extends Component {
           </CardSection>
 
           <CardSection>
+
               <Text style={styles.pickerTextStyle}>Location</Text>
+              
+              <TouchableOpacity onPress={Actions.webview}>
+                <Text>See in Map</Text>
+              </TouchableOpacity>
+
               <Picker
                 style={{ flex: 1 }}
                 selectedValue={location}
@@ -68,6 +75,7 @@ class GameForm extends Component {
               >
               {pickerDataComponents('locations')}
               </Picker> 
+
           </CardSection>
 
           <CardSection>

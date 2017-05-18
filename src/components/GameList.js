@@ -61,7 +61,7 @@ class GameList extends Component {
 const mapStateToProps = (state) => {
     const games = _.map(state.games, (val, uid) => {
     return { ...val, uid }; 
-    }); //_map creates list of objects []
+    }); //_map creates list of game objects [object, object, object,..]
   return ({ games });  //returns object with key-'games' 
                          //and value of games which is list of game objects
  };

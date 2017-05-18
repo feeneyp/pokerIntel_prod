@@ -100,7 +100,6 @@ export const gameDelete = ({ uid }) => {
   };
 
 export const firebaseFetch = (path, actionType) => {
-//export const firebaseFetch = (path, actionType) => {
   return (dispatch) => {
     console.log('GameActions about to do a fb snapshot with actiontype: ' + JSON.stringify({actionType}));
     firebase.database().ref(path)
@@ -113,7 +112,7 @@ export const firebaseFetch = (path, actionType) => {
       dispatch({ type: FB_PICKER_DATA_FETCH_SUCCESS, payload: snapshot.val() });          
         } 
       }
-    console.log('snapshot.val for ' + actionType + 'is: ' + JSON.stringify(snapshot.val()));
+    console.log('snapshot.val of games for ' + actionType + 'is: ' + JSON.stringify(snapshot.val()));
       }); 
     };
 };
