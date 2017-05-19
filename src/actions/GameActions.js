@@ -55,8 +55,8 @@ export const createNewGameInFB = ({ elapsedTime, stake, gameType, location, limi
   return (dispatch) => {
     console.log('gameCreate returns - new session about to be pushed with gameDuration: ' + gameDuration);
     console.log('startDate is: '+startDate);
-    firebase.database().ref(`/users/${currentUser.uid}/games`)
-      .push({ elapsedTime, stake, gameType, location, limitType, buyIn, note, tips, 
+    firebase.database().ref(`/Games`)
+      .push({ User: currentUser.uid, elapsedTime, stake, gameType, location, limitType, buyIn, note, tips, 
           startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut })
       .then(() => {
         dispatch({ type: GAME_CREATED });

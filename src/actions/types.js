@@ -3,6 +3,7 @@ export const PASSWORD_CHANGED = 'password_changed';
 export const EMAIL_LOGIN_USER_SUCCESS = 'email_login_user_success';
 export const EMAIL_LOGIN_USER_FAIL = 'email_login_user_fail';
 export const EMAIL_LOGIN_USER = 'email_login_user';
+export const EMAIL_LOGOUT_USER = 'email_logout_user';
 export const FACEBOOK_LOGIN_USER_SUCCESS = 'facebook_login_user_success';
 export const FACEBOOK_LOGIN_USER_FAIL = 'facebook_login_user_fail';
 

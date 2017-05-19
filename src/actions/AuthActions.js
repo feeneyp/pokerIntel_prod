@@ -6,6 +6,7 @@ import {
   EMAIL_LOGIN_USER_SUCCESS,
   EMAIL_LOGIN_USER_FAIL,
   EMAIL_LOGIN_USER,
+  EMAIL_LOGOUT_USER,
   FACEBOOK_LOGIN_USER_SUCCESS,
   FACEBOOK_LOGIN_USER_FAIL
 } from './types';
@@ -34,13 +35,16 @@ export const emailLoginUser = ({ email, password }) => {
         console.log(error);
         firebase.auth().createUserWithEmailAndPassword(email, password)
           .then(user => emailLoginUserSuccess(dispatch, user))
-          .catch(() => emailLoginUserFail(dispatch));
+          .catch(() => emailLoginUserFail(dispatch,error));
       });
   };
 };
 
-const emailLoginUserFail = (dispatch) => {
-  dispatch({ type: EMAIL_LOGIN_USER_FAIL });
+const emailLoginUserFail = (dispatch,error) => {
+  dispatch({ 
+    type: EMAIL_LOGIN_USER_FAIL,
+    payload: error
+  });
 };
 
 const emailLoginUserSuccess = (dispatch, user) => {
@@ -49,6 +53,16 @@ const emailLoginUserSuccess = (dispatch, user) => {
     payload: user
   });
   Actions.main();
+};
+
+
+const emailLogoutUser = (dispatch, user) => {
+  firebase.auth().signOut().then(function() {
+    dispatch({type: EMAIL_LOGOUT_USER});
+  })
+  .catch(function(error) {
+    // An error happened.
+  });
 };
 
 
