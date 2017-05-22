@@ -15,11 +15,9 @@ class GameList extends Component {
     console.log('gamelist component will mount called');
     const { currentUser } = firebase.auth();
     const userId = currentUser.uid;
-    const path = '/users/' + userId + '/games';
-    this.props.firebaseFetch(path, 'FB_GAMES_FETCH_SUCCESS');
+    this.props.firebaseFetch('/Games/', userId, 'FB_GAMES_FETCH_SUCCESS');
     this.createDataSource(this.props);
-  }	
-
+  }
 
   componentWillReceiveProps(nextProps) {
     // nextProps are the next set of props that this component
@@ -49,16 +47,11 @@ class GameList extends Component {
     console.log('this.props.games from gamelist render is : ' + JSON.stringify(this.props.games));
 
     return (
-      <View>
-        <TouchableOpacity onPress={this.props.emailLogoutUser().bind(this)}>
-          <Text>Logout</Text>
-        </TouchableOpacity>
         <ListView
           enableEmptySections
           dataSource={this.dataSource}
           renderRow={this.renderRow}
         />
-      </View>
       );
     }
   }
@@ -71,5 +64,5 @@ const mapStateToProps = (state) => {
                          //and value of games which is list of game objects
  };
 
-export default connect(mapStateToProps, { firebaseFetch, emailLogoutUser })(GameList);
+export default connect(mapStateToProps, { firebaseFetch})(GameList);
 

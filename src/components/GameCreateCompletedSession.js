@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ScrollView } from 'react-native';
-import { gameUpdate, createNewGameInFB } from '../actions';
+import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { gameUpdate, createNewGameInFB, emailLogoutUser } from '../actions';
 import { Card, CardSection, Button } from './common';
 import GameForm from './GameForm';
 
@@ -41,19 +41,38 @@ class GameCreateCompletedSession extends Component {
 
   render() {
     return (
-      <ScrollView>
-        <Card>
-          <GameForm />
-          <CardSection>
-            <Button onPress={this.onButtonPress.bind(this)}>
-              Create
-            </Button>
-          </CardSection>
-        </Card>
-      </ScrollView>
+      <View>
+        <TouchableOpacity onPress={this.props.emailLogoutUser.bind(this)}>
+          <Text style={styles.textStyle}>
+            Logout
+          </Text>
+        </TouchableOpacity>
+        <ScrollView>
+          <Card>
+            <GameForm />
+            <CardSection>
+              <Button onPress={this.onButtonPress.bind(this)}>
+                Create
+              </Button>
+            </CardSection>
+          </Card>
+        </ScrollView>
+      </View>
     );
   }
 }
+
+const styles = {
+  textStyle: {
+    alignSelf: 'center',
+    color: '#0043ff',
+    fontSize: 16,
+    fontWeight: '600',
+    paddingTop: 10,
+    paddingBottom: 10
+  }
+};
+
 
 const mapStateToProps = (state) => {
   const { elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
@@ -65,4 +84,4 @@ const mapStateToProps = (state) => {
       startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut };
 };
 
-export default connect(mapStateToProps, { gameUpdate, createNewGameInFB })(GameCreateCompletedSession);
+export default connect(mapStateToProps, { gameUpdate, createNewGameInFB, emailLogoutUser })(GameCreateCompletedSession);

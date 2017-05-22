@@ -11,7 +11,7 @@ class GameForm extends Component {
 
   componentWillMount() {
     console.log('gameform component will mount called');
-    this.props.firebaseFetch('/pickerData', 'FB_PICKER_DATA_FETCH_SUCCESS');
+    this.props.firebaseFetch('/pickerData','game_type', 'FB_PICKER_DATA_FETCH_SUCCESS');
   } 
 
   render() {

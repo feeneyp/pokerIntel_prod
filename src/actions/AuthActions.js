@@ -56,15 +56,18 @@ const emailLoginUserSuccess = (dispatch, user) => {
 };
 
 
-export const emailLogoutUser = (dispatch, user) => {
-  firebase.auth().signOut().then(function() {
-    dispatch({type: EMAIL_LOGOUT_USER});
-  })
-  .catch(function(error) {
-    // An error happened.
-  });
-};
-
+export const emailLogoutUser = () => {
+  return (dispatch) => {
+    console.log('emailLogoutUser is being executed');
+    firebase.auth().signOut().then(function(dispatch) {
+      dispatch({type: EMAIL_LOGOUT_USER});
+    })
+    .catch(function(error) {
+      console.log('logging error in emailLogoutUser: ' + error)
+    });
+    Actions.auth();
+  };
+}
 
 export const facebookLoginUserSuccess = () => {
   return(dispatch) => {
