@@ -104,7 +104,7 @@ export const firebaseFetch = (path, userId, actionType) => {
 //export const firebaseFetch = (path, actionType) => {
   return (dispatch) => {
     console.log('GameActions about to do a fb snapshot with actiontype: ' + JSON.stringify({actionType}));
-    firebase.database().ref(path).orderByChild(userId)
+    firebase.database().ref(path).orderByChild('User').equalTo(userId)
       .on('value', snapshot => {
         if (actionType === 'FB_GAMES_FETCH_SUCCESS') {
       dispatch({ type: FB_GAMES_FETCH_SUCCESS, payload: snapshot.val() });
