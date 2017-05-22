@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import firebase from 'firebase';
 import {Card, CardSection} from './common';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { ListView } from 'react-native';
-import { firebaseFetch } from '../actions';
+import { firebaseFetch, emailLogoutUser } from '../actions';
 import ListItem from './ListItem';
 
 
@@ -49,11 +49,16 @@ class GameList extends Component {
     console.log('this.props.games from gamelist render is : ' + JSON.stringify(this.props.games));
 
     return (
-      <ListView
-        enableEmptySections
-        dataSource={this.dataSource}
-        renderRow={this.renderRow}
-      />
+      <View>
+        <TouchableOpacity onPress={this.props.emailLogoutUser().bind(this)}>
+          <Text>Logout</Text>
+        </TouchableOpacity>
+        <ListView
+          enableEmptySections
+          dataSource={this.dataSource}
+          renderRow={this.renderRow}
+        />
+      </View>
       );
     }
   }
@@ -66,5 +71,5 @@ const mapStateToProps = (state) => {
                          //and value of games which is list of game objects
  };
 
-export default connect(mapStateToProps, { firebaseFetch })(GameList);
+export default connect(mapStateToProps, { firebaseFetch, emailLogoutUser })(GameList);
 

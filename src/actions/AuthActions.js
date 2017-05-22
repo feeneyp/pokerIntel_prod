@@ -56,7 +56,7 @@ const emailLoginUserSuccess = (dispatch, user) => {
 };
 
 
-const emailLogoutUser = (dispatch, user) => {
+export const emailLogoutUser = (dispatch, user) => {
   firebase.auth().signOut().then(function() {
     dispatch({type: EMAIL_LOGOUT_USER});
   })
