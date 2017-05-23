@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { ListView } from 'react-native';
-import { firebaseFetch, emailLogoutUser } from '../actions';
+import { firebaseGamesFetch, emailLogoutUser } from '../actions';
 import ListItem from './ListItem';
 
 
@@ -15,7 +15,7 @@ class GameList extends Component {
     console.log('gamelist component will mount called');
     const { currentUser } = firebase.auth();
     const userId = currentUser.uid;
-    this.props.firebaseFetch('/Games/', userId, 'FB_GAMES_FETCH_SUCCESS');
+    this.props.firebaseGamesFetch('/Games/', userId, 'FB_GAMES_FETCH_SUCCESS');
     this.createDataSource(this.props);
   }
 
@@ -64,5 +64,5 @@ const mapStateToProps = (state) => {
                          //and value of games which is list of game objects
  };
 
-export default connect(mapStateToProps, { firebaseFetch})(GameList);
+export default connect(mapStateToProps, { firebaseGamesFetch})(GameList);
 

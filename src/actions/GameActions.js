@@ -52,11 +52,12 @@ export const tick = ({ elapsedTime, previousTime }) => {
 export const createNewGameInFB = ({ elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
     startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut }) => {
   const { currentUser } = firebase.auth();
+  console.log ('currentUser in createNewGameInFB is :' + JSON.stringify(currentUser));
   return (dispatch) => {
     console.log('gameCreate returns - new session about to be pushed with gameDuration: ' + gameDuration);
     console.log('startDate is: '+startDate);
     firebase.database().ref(`/Games`)
-      .push({ User: currentUser.uid, elapsedTime, stake, gameType, location, limitType, buyIn, note, tips, 
+      .push({ User: JSON.stringify(currentUser), elapsedTime, stake, gameType, location, limitType, buyIn, note, tips, 
           startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut })
       .then(() => {
         dispatch({ type: GAME_CREATED });
@@ -100,8 +101,7 @@ export const gameUpdate = ({ prop, value }) => {
 //     };
 //   };
 
-export const firebaseFetch = (path, userId, actionType) => {
-//export const firebaseFetch = (path, actionType) => {
+export const firebaseGamesFetch = (path, userId, actionType) => {
   return (dispatch) => {
     console.log('GameActions about to do a fb snapshot with actiontype: ' + JSON.stringify({actionType}));
     firebase.database().ref(path).orderByChild('User').equalTo(userId)
@@ -109,12 +109,20 @@ export const firebaseFetch = (path, userId, actionType) => {
         if (actionType === 'FB_GAMES_FETCH_SUCCESS') {
       dispatch({ type: FB_GAMES_FETCH_SUCCESS, payload: snapshot.val() });
       }
-      else {
-        if (actionType === 'FB_PICKER_DATA_FETCH_SUCCESS') {
-      dispatch({ type: FB_PICKER_DATA_FETCH_SUCCESS, payload: snapshot.val() });          
-        } 
-      }
-    console.log('snapshot.val for ' + actionType + 'is: ' + JSON.stringify(snapshot.val()));
+      else {}
+    console.log('payload for ' + actionType + 'is: ' + JSON.stringify(snapshot.val()));
       }); 
+    };
+};
+
+
+export const firebasePickerDataFetch = (path) => {
+  return (dispatch) => {
+    console.log('GameActions about to do a fb snapshot for Picker data');
+    firebase.database().ref(path)
+      .on('value', snapshot => {
+      dispatch({ type: FB_PICKER_DATA_FETCH_SUCCESS, payload: snapshot.val() });
+      console.log('payload for FB_PICKER_DATA_FETCH_SUCCESS is: ' + JSON.stringify(snapshot.val()));
+      });
     };
 };

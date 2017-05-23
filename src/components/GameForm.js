@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Picker } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { gameUpdate, firebaseFetch } from '../actions';
+import { gameUpdate, firebasePickerDataFetch } from '../actions';
 import { CardSection, Input } from './common';
 import DateTimePickerAndroid from './DateTimePickerAndroid';
 
@@ -11,7 +11,7 @@ class GameForm extends Component {
 
   componentWillMount() {
     console.log('gameform component will mount called');
-    this.props.firebaseFetch('/pickerData','game_type', 'FB_PICKER_DATA_FETCH_SUCCESS');
+    this.props.firebasePickerDataFetch('/pickerData', 'FB_PICKER_DATA_FETCH_SUCCESS');
   } 
 
   render() {
@@ -143,9 +143,21 @@ const mapStatetoProps = (state) => {
     
   };
 
-export default connect(mapStatetoProps, { gameUpdate, firebaseFetch })(GameForm);
+export default connect(mapStatetoProps, { gameUpdate, firebasePickerDataFetch })(GameForm);
 
-//code to put into chrome dev tools console to quickly populate
+
+
+
+
+
+
+
+
+
+
+
+
+// code to put into chrome dev tools console to quickly populate
 // firebase with items for pickers and dropdowns
 // new Firebase('https://pokerincome-69774.firebaseio.com').child('/').update({
 //     pickerData: {
