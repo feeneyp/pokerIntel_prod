@@ -28,12 +28,12 @@ export const passwordChanged = (text) => {
 export const emailLoginUser = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: EMAIL_LOGIN_USER });
-
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => emailLoginUserSuccess(dispatch, user))
       .catch((error) => {
         console.log(error);
         firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then(user => createNewUserInFB(user))
           .then(user => emailLoginUserSuccess(dispatch, user))
           .catch(() => emailLoginUserFail(dispatch,error));
       });
@@ -54,6 +54,13 @@ const emailLoginUserSuccess = (dispatch, user) => {
   });
   Actions.main();
 };
+
+
+const createNewUserInFB = (user) => {
+  console.log ('user in createNewUserInFB is :' + JSON.stringify(user));
+    firebase.database().ref(`/players`)
+      .push({ userId: user.uid, email: user.email })
+}; 
 
 
 export const emailLogoutUser = () => {
