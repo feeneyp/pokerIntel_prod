@@ -3,7 +3,11 @@ package com.pokerintel;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+//<<<<<<< ours  //i commented this out bc compile error 
+//error: class, interface, or enum expected
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
+//=======   //i commented this line out too
+//>>>>>>> theirs   //i commented this line out too
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;

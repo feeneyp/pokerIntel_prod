@@ -136,7 +136,7 @@ const styles = {
 const mapStatetoProps = (state) => {
   const { pickerData, stake, gameType, location, limitType, buyIn, note, tips,
       startDate, startTime, endDate, endTime, cashOut, gameCompleted } = state.gameForm;
-  console.log('state from gameform mapStatetoProps is : ' + JSON.stringify(state));
+  //console.log('state from gameform mapStatetoProps is : ' + JSON.stringify(state));
   console.log('pickerData before mstp return is: ' + JSON.stringify(pickerData));
   return { pickerData, stake, gameType, location, limitType, buyIn, note, tips,
       startDate, startTime, endDate, endTime, cashOut, gameCompleted};

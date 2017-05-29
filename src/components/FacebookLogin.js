@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 import { View } from 'react-native';
 import FBSDK from 'react-native-fbsdk';
 import { connect} from 'react-redux';
@@ -6,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { facebookLoginUserSuccess } from '../actions';
 import { Actions } from 'react-native-router-flux';
 
-const { LoginButton } = FBSDK;
+const { LoginButton, AccessToken } = FBSDK;
       
 class FacebookLogin extends Component {
   render() {
@@ -21,8 +22,22 @@ class FacebookLogin extends Component {
               } else if (result.isCancelled) {
                 console.log("Login was cancelled");
               } else {
+                AccessToken.getCurrentAccessToken()
+                .then(function(data) {
+                  var credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken.toString());
+                  firebase.auth().signInWithCredential(credential)
+                // .then(function(user) {
+                //   console.log("Sign In Success", user);
+                //   }, 
+                //   function(error) {
+                //     console.log("Sign In Error", error);
+                //   });
+
+
+                
                 this.props.facebookLoginUserSuccess();
                 console.log("Login was successful with permissions: " + result.grantedPermissions)
+              })
               }
             }
           }

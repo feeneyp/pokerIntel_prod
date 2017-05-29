@@ -44,7 +44,7 @@ class GameList extends Component {
   }
     
   render() {
-    console.log('this.props.games from gamelist render is : ' + JSON.stringify(this.props.games));
+    //console.log('this.props.games from gamelist render is : ' + JSON.stringify(this.props.games));
 
     return (
         <ListView
