@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, emailLoginUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
-import FBLogin from './FBLogin';
+import FacebookLogin from './FacebookLogin';
 
 class LoginForm extends Component {
   onEmailChange(text) {
@@ -16,7 +16,6 @@ class LoginForm extends Component {
 
   onButtonPress() {
     const { email, password } = this.props;
-
     this.props.emailLoginUser({ email, password });
   }
 
@@ -65,7 +64,7 @@ class LoginForm extends Component {
 
         <View style={{ alignItems: 'center' }}>
             <Text>&nbsp;</Text>
-            <FBLogin />
+            <FacebookLogin />
         </View>
 
       </View>
@@ -84,7 +83,6 @@ const styles = {
 
 const mapStateToProps = ({ auth }) => {
   const { email, password, error, loading } = auth;
-
   return { email, password, error, loading };
 };
 

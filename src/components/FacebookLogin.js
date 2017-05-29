@@ -8,7 +8,7 @@ import { Actions } from 'react-native-router-flux';
 
 const { LoginButton } = FBSDK;
       
-class FBLogin extends Component {
+class FacebookLogin extends Component {
   render() {
     return (
       <View>
@@ -38,4 +38,4 @@ const mapStateToProps = ({ auth }) => {
   return {error, loading };
 };
 
-export default connect(mapStateToProps, { facebookLoginUserSuccess })(FBLogin);
+export default connect(mapStateToProps, { facebookLoginUserSuccess })(FacebookLogin);
