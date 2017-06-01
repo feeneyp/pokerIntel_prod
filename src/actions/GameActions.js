@@ -49,15 +49,15 @@ export const tick = ({ elapsedTime, previousTime }) => {
   };
 };
 
+
 export const createNewGameInFB = ({ elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
     startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut }) => {
   const { currentUser } = firebase.auth();
-  console.log ('currentUser in createNewGameInFB is :' + JSON.stringify(currentUser));
   return (dispatch) => {
     console.log('gameCreate returns - new session about to be pushed with gameDuration: ' + gameDuration);
     console.log('startDate is: '+startDate);
-    firebase.database().ref(`/Games`)
-      .push({ User: JSON.stringify(currentUser), elapsedTime, stake, gameType, location, limitType, buyIn, note, tips, 
+    firebase.database().ref(`/players/${currentUser.uid}/games`)
+      .push({ elapsedTime, stake, gameType, location, limitType, buyIn, note, tips, 
           startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut })
       .then(() => {
         dispatch({ type: GAME_CREATED });
@@ -65,6 +65,10 @@ export const createNewGameInFB = ({ elapsedTime, stake, gameType, location, limi
       });
   };
 };
+
+
+
+
 
 //TODO: TO ADJUST THE FOLLOWING FUNCTION FOR NEW FIREBASE SCHEMA
 // export const gameSave = ({ elapsedTime, stake, gameType, location, limitType, buyIn, note, tips, 

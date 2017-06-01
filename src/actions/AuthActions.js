@@ -58,8 +58,8 @@ const emailLoginUserSuccess = (dispatch, user) => {
 
 const createNewUserInFB = (user) => {
   console.log ('user in createNewUserInFB is :' + JSON.stringify(user));
-    firebase.database().ref(`/players`)
-      .push({ userId: user.uid, email: user.email })
+    firebase.database().ref(`/players/${user.uid}/profile_data`)
+      .push({ display_name: 'display name', email: user.email })
 }; 
 
 
