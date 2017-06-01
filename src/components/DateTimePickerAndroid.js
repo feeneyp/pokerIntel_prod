@@ -5,7 +5,7 @@ import { DatePickerAndroid, TimePickerAndroid, View, Text, TouchableOpacity } fr
 import { gameUpdate } from '../actions';
 import { CardSection } from './common/CardSection';
 
-class DateTimePickerAndroid extends Component { 
+class DateTimePickerAndroid extends Component {
 
   showDatePicker = async (prop, options) => {
     try {

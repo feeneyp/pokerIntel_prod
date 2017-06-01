@@ -26,18 +26,15 @@ class FacebookLogin extends Component {
                 .then(function(data) {
                   var credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken.toString());
                   firebase.auth().signInWithCredential(credential)
-                // .then(function(user) {
-                //   console.log("Sign In Success", user);
-                //   }, 
-                //   function(error) {
-                //     console.log("Sign In Error", error);
-                //   });
-
-
-                
-                this.props.facebookLoginUserSuccess();
+                .then(function(user) {
+                  console.log("Sign In Success", user);
+                  }, 
+                  function(error) {
+                    console.log("Sign In Error", error);
+                  });
+                this.props.facebookLoginUserSuccess(user);
                 console.log("Login was successful with permissions: " + result.grantedPermissions)
-              })
+                })
               }
             }
           }

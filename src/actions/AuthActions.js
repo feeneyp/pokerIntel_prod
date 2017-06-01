@@ -76,11 +76,11 @@ export const emailLogoutUser = () => {
   };
 }
 
-export const facebookLoginUserSuccess = () => {
+export const facebookLoginUserSuccess = (user) => {
   return(dispatch) => {
     dispatch({
       type: FACEBOOK_LOGIN_USER_SUCCESS,
-      payload: "facebook user"
+      payload: user
     });
     Actions.main();
     console.log("facebookLoginUserSuccess called as action in fblogin.js");
