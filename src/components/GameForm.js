@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Picker } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { gameUpdate, firebasePickerDataFetch } from '../actions';
+import { gameUpdate, firebaseFetch } from '../actions';
 import { CardSection, Input } from './common';
 import DateTimePickerAndroid from './DateTimePickerAndroid';
 
@@ -11,7 +11,7 @@ class GameForm extends Component {
 
   componentWillMount() {
     console.log('gameform component will mount called');
-    this.props.firebasePickerDataFetch('/pickerData', 'FB_PICKER_DATA_FETCH_SUCCESS');
+    this.props.firebaseFetch('/pickerData', 'FB_PICKER_DATA_FETCH_SUCCESS');
   } 
 
   render() {
@@ -143,7 +143,7 @@ const mapStatetoProps = (state) => {
     
   };
 
-export default connect(mapStatetoProps, { gameUpdate, firebasePickerDataFetch })(GameForm);
+export default connect(mapStatetoProps, { gameUpdate, firebaseFetch })(GameForm);
 
 
 

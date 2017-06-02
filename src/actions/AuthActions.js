@@ -72,7 +72,7 @@ export const emailLogoutUser = () => {
     .catch(function(error) {
       console.log('logging error in emailLogoutUser: ' + error)
     });
-    Actions.auth();
+    Actions.auth({type: 'reset'});
   };
 }
 
