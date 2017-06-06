@@ -82,7 +82,7 @@ export const facebookLoginUserSuccess = (user) => {
       type: FACEBOOK_LOGIN_USER_SUCCESS,
       payload: user
     });
-    Actions.main();
+    Actions.main({type: 'reset'});
     console.log("facebookLoginUserSuccess called as action in fblogin.js");
   };
 };

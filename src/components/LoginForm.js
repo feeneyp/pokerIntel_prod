@@ -58,7 +58,7 @@ class LoginForm extends Component {
           </Text>
         </Card>
 
-        <View style={{ flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           {this.renderButton()}
         </View>
 
