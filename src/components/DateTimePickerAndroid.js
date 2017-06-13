@@ -22,18 +22,18 @@ class DateTimePickerAndroid extends Component {
               ({ year, month, day } = startEndISOFormat.endDate);
               ({ hour, minute } = startEndISOFormat.endTime);
               const gameEnd = new Date(year, month, day, hour, minute);
-              console.log('||||||||||||||||||||||||||||||||||||');
-              console.log('DATE AND TIME LOGS');
-              console.log('this.startEndISOFormat is: ' + JSON.stringify(startEndISOFormat));
-              console.log('|||||||||||||||||||||||||||||||||||');
-              console.log('gameStart is: ' + gameStart);
-              console.log('gameEnd is: ' + gameEnd);
+              // console.log('||||||||||||||||||||||||||||||||||||');
+              // console.log('DATE AND TIME LOGS');
+              // console.log('this.startEndISOFormat is: ' + JSON.stringify(startEndISOFormat));
+              // console.log('|||||||||||||||||||||||||||||||||||');
+              // console.log('gameStart is: ' + gameStart);
+              // console.log('gameEnd is: ' + gameEnd);
               const duration = Math.round((gameEnd - gameStart)/(60*60*1000) * 10) / 10.0;
-              console.log('duration is: ' + duration);
+              // console.log('duration is: ' + duration);
               //this.props.gameUpdate({ prop: 'gameDuration', value: duration });
-              console.log('gameduration about to be updated by props.gameupdate');
+              // console.log('gameduration about to be updated by props.gameupdate');
               this.props.gameUpdate({ prop: 'gameDuration', value: duration });
-              console.log('gameDuration in props is: ' + this.props.gameDuration);
+              // console.log('gameDuration in props is: ' + this.props.gameDuration);
         }
     } catch ({ code, message }) {
       console.warn('Error in example: ', message);
@@ -56,18 +56,18 @@ class DateTimePickerAndroid extends Component {
             ({ year, month, day } = startEndISOFormat.endDate);
             ({ hour, minute } = startEndISOFormat.endTime);
             const gameEnd = new Date(year, month, day, hour, minute);
-            console.log('||||||||||||||||||||||||||||||||||||');
-            console.log('DATE AND TIME LOGS');
-            console.log('this.startEndISOFormat is: ' + JSON.stringify(startEndISOFormat));
-            console.log('|||||||||||||||||||||||||||||||||||');
-            console.log('gameStart is: '+gameStart);
-            console.log('gameEnd is: '+gameEnd);
+            // console.log('||||||||||||||||||||||||||||||||||||');
+            // console.log('DATE AND TIME LOGS');
+            // console.log('this.startEndISOFormat is: ' + JSON.stringify(startEndISOFormat));
+            // console.log('|||||||||||||||||||||||||||||||||||');
+            // console.log('gameStart is: '+gameStart);
+            // console.log('gameEnd is: '+gameEnd);
             const duration = Math.round((gameEnd - gameStart)/(60*60*1000) * 10) / 10.0;
-            console.log('duration is: '+duration);
+            // console.log('duration is: '+duration);
             //this.props.gameUpdate({ prop: 'gameDuration', value: duration });
-            console.log('gameduration about to be updated by props.gameupdate');
+            // console.log('gameduration about to be updated by props.gameupdate');
             this.props.gameUpdate({ prop: 'gameDuration', value: duration });
-            console.log('gameDuration in props is: ' + this.props.gameDuration);
+            // console.log('gameDuration in props is: ' + this.props.gameDuration);
       } else if (action === TimePickerAndroid.dismissedAction) {
             //boilerplate code had code in here
       }
@@ -79,7 +79,15 @@ class DateTimePickerAndroid extends Component {
 
   render() {
     const StartDateTimeComponent = () => {
-      if (!this.props.running && !this.props.gameCompleted) {
+      // console.log("----------------++++++++++++++++------------------");
+      // console.log("------console log from DateTimePickerAndroid------");
+      // console.log("----------------++++++++++++++++------------------");
+      // console.log("----------------++++++++++++++++------------------");
+      // console.log("this.props.elapsedTime: " + this.props.elapsedTime);
+      // console.log("!this.props.running: " +!this.props.running + "!this.props.timerIsInView: " + !this.props.timerIsInView);
+      // console.log("----------------++++++++++++++++------------------");
+      if (this.props.timerIsInView && (this.props.elapsedTime === 0)) {
+      //this catches the condition of timer before start button pressed
         return null;
       }
       return (
@@ -101,7 +109,8 @@ class DateTimePickerAndroid extends Component {
     };
 
     const EndDateTimeComponent = () => {
-      if (!this.props.gameCompleted) {
+      if (this.props.running || (this.props.timerIsInView && (this.props.elapsedTime === 0))) {
+      //this catches the condition of timer before start and timer running
         return null;
       }
       return (
@@ -158,8 +167,8 @@ const styles = {
 
 
 const mapStateToProps = (state) => {
-  const { startDate, startTime, endDate, endTime, startEndISOFormat, running, gameDuration, gameCompleted } = state.gameForm;
-  return { startDate, startTime, endDate, endTime, startEndISOFormat, running, gameDuration, gameCompleted };
+  const { startDate, startTime, endDate, endTime, startEndISOFormat, running, gameDuration, timerIsInView, elapsedTime } = state.gameForm;
+  return { startDate, startTime, endDate, endTime, startEndISOFormat, running, gameDuration, timerIsInView, elapsedTime };
 };
 
 export default connect(mapStateToProps, { gameUpdate })(DateTimePickerAndroid);

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { gameUpdate, createNewGameInFB, onStart, onStop, onReset, tick } from '../actions';
+import { timerDisplayed, gameUpdate, createNewGameInFB, onStart, onStop, onReset, tick } from '../actions';
 import { Card, CardSection, Button } from './common';
 import GameForm from './GameForm';
 import Stopwatch from './Stopwatch';
 
 class GameCreateLiveSession extends Component {
+
+  componentWillMount() {
+    this.props.timerDisplayed();
+  }
 
   onButtonPress() {
     const { elapsedTime, stake, gameType, location, limitType, buyIn, note, tips,
@@ -40,4 +44,4 @@ const mapStateToProps = (state) => {
     startDate, startTime, endDate, endTime, startEndISOFormat, gameDuration, cashOut };
 };
 
-export default connect(mapStateToProps, { gameUpdate, createNewGameInFB, onStart, onStop, onReset, tick })(GameCreateLiveSession);
+export default connect(mapStateToProps, { timerDisplayed, gameUpdate, createNewGameInFB, onStart, onStop, onReset, tick })(GameCreateLiveSession);

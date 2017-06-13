@@ -8,12 +8,6 @@ import GameForm from './GameForm';
 
 class GameCreateCompletedSession extends Component {
 
-  componentWillMount() {
-    //this is for the logic in DateTimePicker which conditionally 
-    //makes start and end fields appear only as stopwatch buttons tapped
-    this.props.gameUpdate({ prop: 'gameCompleted', value: true });
-  }
-
   onButtonPress() {
 
     const { elapsedTime, stake, gameType, location, limitType, buyIn, 

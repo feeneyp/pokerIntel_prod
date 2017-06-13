@@ -16,7 +16,7 @@ class GameForm extends Component {
 
   render() {
     const { pickerData, stake, gameType, location, limitType, buyIn, note, tips,
-    cashOut, gameCompleted } = this.props;
+    cashOut} = this.props;
     console.log('this.props from render in gameform is: ' + JSON.stringify(this.props));
 
 
@@ -135,11 +135,11 @@ const styles = {
 
 const mapStatetoProps = (state) => {
   const { pickerData, stake, gameType, location, limitType, buyIn, note, tips,
-      startDate, startTime, endDate, endTime, cashOut, gameCompleted } = state.gameForm;
+      startDate, startTime, endDate, endTime, cashOut, timerIsInView, elapsedTime } = state.gameForm;
   //console.log('state from gameform mapStatetoProps is : ' + JSON.stringify(state));
   console.log('pickerData before mstp return is: ' + JSON.stringify(pickerData));
   return { pickerData, stake, gameType, location, limitType, buyIn, note, tips,
-      startDate, startTime, endDate, endTime, cashOut, gameCompleted};
+      startDate, startTime, endDate, endTime, cashOut, timerIsInView, elapsedTime};
     
   };
 

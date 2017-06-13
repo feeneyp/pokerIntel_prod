@@ -1,5 +1,6 @@
-import { START, STOP, RESET, TICK } from '../actions/types';
 import {
+  TIMER_DISPLAYED,
+  START, STOP, RESET, TICK,
   GAME_UPDATE,
   GAME_CREATED,
   GAME_SAVE_SUCCESS,
@@ -11,7 +12,7 @@ const INITIAL_STATE = {
   running: false,
   previouseTime: 0,
   elapsedTime: 0,
-  gameCompleted: false,
+  timerIsInView: false,
   stake: '',
   gameType: '',
   location: '',
@@ -36,10 +37,12 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case TIMER_DISPLAYED:
+      return { ...state, timerIsInView: action.timerIsInView };
     case START:
       return { ...state, running: action.running, previousTime: action.previousTime, startDate: action.startDate, startTime: action.startTime };
     case STOP:
-      return { ...state, running: action.running, gameCompleted: action.gameCompleted, endDate: action.endDate, endTime: action.endTime, gameDuration: action.gameDuration };
+      return { ...state, running: action.running, endDate: action.endDate, endTime: action.endTime, gameDuration: action.gameDuration };
     case RESET:
       return { ...state, elapsedTime: action.elapsedTime, previousTime: action.previousTime };
     case TICK:
